@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id" id="htmlRoot">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kelas XI TAV | SMK KAL 1 Maju Bersama</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <link rel="icon" href="image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+</head>
+  <!-- Tambahkan SEBELUM </body> -->
+  <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+<body>
+
+  <!-- Header -->
+  <header class="navbar">
+    <div class="container">
+      <div class="logo-wrapper">
+        <img src="img/logo.png" alt="Logo Sekolah" class="logo-img" onerror="this.style.display='none'">
+        <div class="logo-text">XI TAV Maju Bersama</div>
+      </div>
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          🌙
+        </button>
+        <nav class="nav-menu" id="navMenu">
+          <a href="#tentang" class="nav-link">Tentang</a>
+          <a href="#struktur" class="nav-link">Struktur</a>
+          <a href="#prestasi" class="nav-link">Prestasi</a>
+          <a href="#kegiatan" class="nav-link">Kegiatan</a>
+          <a href="#anggota" class="nav-link">Anggota</a>
+          <a href="#kehadiran" class="nav-link">Kehadiran</a>
+          <a href="#kalender" class="nav-link">Kalender</a>
+        </nav>
+        <div class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Section Tentang -->
+  <section id="tentang" class="section">
+    <div class="container">
+      <div class="section-content" style="max-width:750px">
+        <h2>Selamat Datang di Kelas XI TAV</h2>
+        <p>Kami adalah keluarga belajar yang terdiri dari <span class="highlight">15 siswa aktif</span> dan <span class="highlight">3 guru pendamping</span>, berkomitmen untuk tumbuh bersama dalam semangat gotong royong, kreativitas, dan integritas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Struktur -->
+  <section id="struktur" class="section">
+    <div class="container">
+      <div class="section-content" style="max-width:750px">
+        <h2>Struktur Organisasi</h2>
+        <p>Berikut adalah susunan kepengurusan kelas yang dipilih melalui musyawarah:</p>
+        <ul>
+          <li><strong>Ketua Kelas:</strong> Habil Qhodam Wahyudi— Koordinator kegiatan & komunikasi internal</li>
+          <li><strong>Wakil Ketua:</strong> ALIA NOVA PRAMITA — Pendamping ketua & penghubung dengan guru</li>
+          <li><strong>Sekretaris1:</strong> KEIZYA ADITA ZABRINA — Dokumentasi & administrasi kelas</li>
+          <li><strong>sekertaris2:</strong> ANDI NURMAN RISQI — Jaga kebersihan & P3K</li>
+          <li><strong>Bendahara:</strong> ADEK ARIFA SETIYANI SYU’AIB — Pengelolaan dana kelas & laporan keuangan</li>
+          <li><strong>Divisi IT $ Media Sosial:</strong> MOCH. JABAR ALAM — Pengelola media sosial & website kelas</li>
+          <li><strong>Divisi Publikasi:</strong> HABIL QODAM WAHYUD — Perencanaan kegiatan & dekorasi</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Prestasi -->
+  <section id="prestasi" class="section">
+    <div class="container">
+      <div class="section-content" style="max-width:750px">
+        <h2>Prestasi Unggulan</h2>
+        <p>Dalam kurun waktu satu semester, kami telah meraih sejumlah pencapaian membanggakan:</p>
+        <ul>
+          <li>🏆 <strong>Juara 1</strong> — Kompetisi Robotik Edukasi (KREASI)</li>
+          <li>🥈 <strong>Juara 2</strong> — Festival Seni & Budaya Pelajar Daerah</li>
+          <li>🥉 <strong>Juara 3</strong> — Lomba Cerdas Cermat Tingkat Sekolah (2025)</li>
+          <li>🎖️ <strong>Penghargaan Kreativitas</strong> — Desain Poster Hari Pendidikan Nasional</li>
+          <li>🌱 <strong>Program Unggulan Sekolah</strong> — "Kelas Hijau" (Pengelolaan Sampah & Tanaman Obat)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Kegiatan -->
+  <section id="kegiatan" class="section">
+    <div class="container">
+      <h2>Kegiatan Kelas</h2>
+      <p class="section-subtitle">30+ kegiatan dalam 1 semester — belajar sambil berkontribusi</p>
+      <div class="kegiatan-list" id="kegiatanContainer">
+        <!-- Diisi via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Anggota -->
+  <section id="anggota" class="section">
+    <div class="container">
+      <h2>Daftar Anggota</h2>
+      <p class="section-subtitle">15 Siswa & 3 Guru Pendamping — Bersama, Kami Tumbuh</p>
+
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">Semua</button>
+        <button class="filter-btn" data-filter="siswa">Siswa</button>
+        <button class="filter-btn" data-filter="guru">Guru</button>
+        <button class="filter-btn" data-filter="ketua">Ketua/Wakil</button>
+        <button class="filter-btn" data-filter="it"> IT </button>
+        <button class="filter-btn" data-filter="acara">Divisi Acara</button>
+        <button class="filter-btn" data-filter="kesehatan">Kesehatan</button>
+      </div>
+
+      <div class="anggota-grid" id="anggotaContainer">
+        <!-- Diisi via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Kehadiran -->
+  <section id="kehadiran" class="section">
+    <div class="container">
+      <h2>Form Kehadiran Harian</h2>
+      <p class="section-subtitle">Isi setiap hari sebelum pelajaran dimulai</p>
+      <div class="form-section">
+        <form id="attendanceForm">
+          <div class="form-group">
+            <label for="date">Tanggal</label>
+            <input type="date" id="date" required>
+          </div>
+          <div class="form-group">
+            <label for="student">Nama Siswa</label>
+            <select id="student" required>
+              <option value="">Pilih nama...</option>
+              <!-- Diisi via JS -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Status Kehadiran</label>
+            <div class="radio-group">
+              <label><input type="radio" name="status" value="Hadir" required> Hadir</label>
+              <label><input type="radio" name="status" value="Sakit"> Sakit</label>
+              <label><input type="radio" name="status" value="Izin"> Izin</label>
+              <label><input type="radio" name="status" value="Alpa"> Alpa</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="note">Catatan (opsional)</label>
+            <textarea id="note" rows="2" placeholder="Contoh: Surat dokter dilampirkan"></textarea>
+          </div>
+            <div class="form-footer">
+              <button type="button" class="btn" id="saveToExcelBtn">
+                <span>💾</span> Simpan ke Excel
+              </button>
+              <button type="button" class="btn btn-export" id="exportPdfBtn">
+                <span>📄</span> Export ke PDF
+              </button>
+              <button type="button" class="btn" id="viewHistoryBtn">
+                Lihat Riwayat
+              </button>
+            </div>
+          </div>
+        </form>
+        <div id="formMessage"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Kalender -->
+  <section id="kalender" class="section">
+    <div class="container">
+      <h2>Kalender Kegiatan</h2>
+      <p class="section-subtitle">Jadwal resmi kelas & sekolah</p>
+      <div class="calendar-container">
+        <div class="calendar-header">
+          <h3>Kalender Kelas XI-TAV</h3>
+          <a href="https://calendar.google.com/calendar/u/0?cid=..." 
+             target="_blank" 
+             class="btn" 
+             id="calendarLink">
+            Buka di Google Calendar
+          </a>
+        </div>
+        <div class="calendar-content">
+          <iframe id="calendarIframe" frameborder="0" scrolling="no"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <span class="lightbox-close" id="lightboxClose">&times;</span>
+      <img src="" alt="" class="lightbox-img" id="lightboxImg">
+      <div class="lightbox-info">
+        <h3 id="lightboxName">Nama</h3>
+        <p id="lightboxRole">Peran</p>
+        <p id="lightboxDesc">Deskripsi</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Libraries -->
+<script src="JS/xlsx.full.min.js"></script>
+  
+  <!-- JS Files -->
+  <script src="JS/data.js"></script>
+  <script src="JS/main.js"></script>
+</body>
+</html>
