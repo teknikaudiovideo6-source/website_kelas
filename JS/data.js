@@ -8,7 +8,7 @@ const anggotaData = [
   { id: 5, nama: "ANDI NURMAN RISQI", role: "Sekertaris", desc: "laki", kategori: ["siswa","it" ,"acara"], img: "img/andinur.jpg" },
   { id: 6, nama: "ARZIQ KHOLID SAIFULLAH", role: "anggota", desc: "laki", kategori: ["siswa", "acara" ], img: "img/arziq.jpg" },
   { id: 7, nama: "DANISWARA WAHYU WIDYATAMA", role: "anggota", desc: "laki", kategori: ["siswa", ], img: "https://via.placeholder.com/220x210/b8e986/000000?text=Raka" },
-  { id: 8, nama: "HABIL QODAM WAHYUD", role: "Ketua Kelas", desc: "laki", kategori: ["siswa", "ketua","acara"], img: "img/habil.jpg" },
+  { id: 8, nama: "HABIL QODAM WAHYUD", role: "Ketua Kelas", desc: "laki", kategori: ["siswa", "ketua","acara"], img: "img/Habil.jpg" },
   { id: 9, nama: "KEIZYA ADITA ZABRINA", role: "Sekertaris", desc: "permpuan", kategori: ["siswa", "it"], img: "img/keiza.jpg" },
   { id: 10, nama: "MISBACH IRSYAD ACMAD", role: "anggota", desc: "laki", kategori: ["siswa", ], img: "img/misba.jpg" },
   { id: 11, nama: "MOCH. DAMAR AL FAREZT PUTRA K", role: "anggota", desc: "laki", kategori: ["siswa", "acara"], img: "img/damar.jpg" },
@@ -41,3 +41,4 @@ const kegiatanData = [
   { judul: "Pembuatan Poster Edukasi", tanggal: "11 Mei 2025", img: "https://via.placeholder.com/320x180/5c6bc0/ffffff?text=Poster" },
   { judul: "Pentas Seni Akhir Semester", tanggal: "28 Mei 2025", img: "https://via.placeholder.com/320x180/6dd5ed/ffffff?text=Pentas+Seni" }
 ];
+
