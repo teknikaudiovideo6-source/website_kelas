@@ -301,33 +301,4 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     // ... Kode JavaScript yang sudah ada (Theme Toggle, Hamburger Menu, dll.) ...
 
-    // --- LOGIKA ANIMASI ON-SCROLL (Intersection Observer) ---
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1 // Ketika 10% elemen terlihat, aktifkan animasi
-    };
-
-    // Ambil semua elemen yang memiliki kelas 'animate-init'
-    const elementsToAnimate = document.querySelectorAll('.animate-init');
-
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Tambahkan kelas 'fade-in' untuk memicu transisi di CSS
-                entry.target.classList.add('fade-in');
-                // Hentikan pengamatan setelah animasi dipicu sekali
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    // Amati setiap elemen yang perlu dianimasikan
-    elementsToAnimate.forEach(element => {
-        observer.observe(element);
-    });
-
-    // Catatan: Jika kartu anggota dan kegiatan dibuat secara dinamis menggunakan JS,
-    // Anda harus memastikan kode pembuat kartu juga menambahkan kelas 'animate-init'
-    // ke setiap kartu baru dan mengamati kartu-kartu tersebut.
-});
+     
