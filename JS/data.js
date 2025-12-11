@@ -19,8 +19,8 @@ const anggotaData = [
   
   // Guru
   { id: 16, nama: "Ismail.", role: "Wali Kelas+Kaprodi", desc: "Guru Teknik Jaringan & pembimbing karakter", kategori: ["guru"], img: "img/ismail.png" },
-  { id: 17, nama: "Siti Hardiyan.", role: "Guru Bengkel", desc: "Pendamping konseling & pengembangan diri", kategori: ["guru"], img: "img/mahardian.png" },
-  { id: 18, nama: "Bagus Catur", role: "Guru Bengkel", desc: "Pembina OSIS & pelatih kepemimpinan", kategori: ["guru"], img: "https://via.placeholder.com/220x210/8e44ad/ffffff?text=Bu+Sari" }
+  { id: 17, nama: "Siti Hardiyan.", role: "Guru Bengkel", desc: "Pendamping & pengembangan diri", kategori: ["guru"], img: "img/mahardian.png" },
+  { id: 18, nama: "Bagus Catur", role: "Guru Bengkel", desc: "Pembina & pelatih ", kategori: ["guru"], img: "https://via.placeholder.com/220x210/8e44ad/ffffff?text=Bu+Sari" }
 ];
 
 // Data Kegiatan
@@ -41,5 +41,6 @@ const kegiatanData = [
   { judul: "Pembuatan Poster Edukasi", tanggal: "11 Mei 2025", img: "https://via.placeholder.com/320x180/5c6bc0/ffffff?text=Poster" },
   { judul: "Pentas Seni Akhir Semester", tanggal: "28 Mei 2025", img: "https://via.placeholder.com/320x180/6dd5ed/ffffff?text=Pentas+Seni" }
 ];
+
 
 
