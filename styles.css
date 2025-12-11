@@ -1,546 +1,252 @@
-:root {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #2d3748;
-  --text-secondary: #4a5568;
-  --accent: #1e56a0;
-  --accent-light: #2a6bb5;
-  --highlight: #ff6b35;
-  --card-bg: #ffffff;
-  --border-color: #e2e8f0;
-  --shadow: 0 4px 12px rgba(0,0,0,0.08);
-  --shadow-hover: 0 10px 25px rgba(0,0,0,0.12);
-}
+/* ============================= */
+/* 🤖 ROBOTIC THEME ENHANCEMENTS */
+/* ============================= */
 
-[data-theme="dark"] {
-  --bg-primary: #1a202c;
-  --bg-secondary: #2d3748;
-  --text-primary: #e2e8f0;
-  --text-secondary: #cbd5e0;
-  --accent: #63b3ed;
-  --accent-light: #4299e1;
-  --highlight: #f6ad55;
-  --card-bg: #2d3748;
-  --border-color: #4a5568;
-  --shadow: 0 4px 12px rgba(0,0,0,0.2);
-  --shadow-hover: 0 10px 25px rgba(0,0,0,0.3);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  line-height: 1.7;
-  color: var(--text-primary);
-  background: var(--bg-primary);
-  scroll-behavior: smooth;
-  position: relative;
-  overflow-x: hidden;
-}
-
-.container {
-  width: 90%;
-  max-width: 1140px;
-  margin: 0 auto;
-}
-
-/* === HEADER === */
-.navbar {
-  background: linear-gradient(135deg, var(--accent), var(--accent-light));
-  color: white;
-  padding: 1rem 0;
+/* 1. CRT scanline overlay (soft, unobtrusive) */
+body::before {
+  content: '';
   position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(30, 86, 160, 0.2);
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 1px,
+      rgba(100, 200, 255, 0.04) 1px,
+      rgba(100, 200, 255, 0.04) 2px
+    );
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.35;
+  animation: scanlineMove 10s linear infinite;
 }
 
-.navbar .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+@keyframes scanlineMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100vh; }
+}
+
+/* 2. Navbar mechanical hinge & LED strip */
+.navbar {
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      var(--accent),
+      var(--accent) 12px,
+      transparent 12px,
+      transparent 24px
+    );
+  animation: ledPulse 2s infinite alternate;
+  opacity: 0.7;
+}
+
+@keyframes ledPulse {
+  0% { opacity: 0.4; }
+  100% { opacity: 1; box-shadow: 0 0 6px var(--accent); }
 }
 
 .logo-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  animation: hingeIn 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+  opacity: 0;
 }
 
-.logo-img {
-  height: 42px;
-  width: auto;
-  border-radius: 6px;
-  background: rgba(255,255,255,0.15);
-  padding: 4px;
+.logo-wrapper:nth-child(1) { opacity: 1; } /* override if needed */
+
+@keyframes hingeIn {
+  0% { transform: rotateX(-85deg) scale(0.8); opacity: 0; }
+  70% { transform: rotateX(15deg) scale(1.04); }
+  100% { transform: rotateX(0) scale(1); opacity: 1; }
 }
 
-.logo-text {
-  font-size: 1.6rem;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-}
-
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-}
-
-.theme-toggle {
-  background: rgba(255,255,255,0.2);
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: white;
-  font-size: 1.2rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s;
-}
-
-.theme-toggle:hover {
-  background: rgba(255,255,255,0.3);
-}
-
-.nav-menu {
-  display: flex;
-  gap: 1.6rem;
-}
-
-.nav-link {
-  color: white;
-  text-decoration: none;
-  padding: 0.5rem 0;
-  font-weight: 500;
-  font-size: 1.05rem;
-  transition: all 0.3s ease;
+/* 3. Section title: servo-unfold underline */
+.section h2 {
   position: relative;
+  display: inline-block;
 }
 
-.nav-link::after {
+.section h2::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: var(--highlight);
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
-}
-
-.nav-link:hover {
-  color: #ffecd5;
-}
-
-.nav-link:hover::after {
-  width: 60%;
-}
-
-.hamburger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-}
-
-.hamburger span {
-  width: 26px;
-  height: 3px;
-  background-color: white;
-  margin: 4px 0;
-  border-radius: 2px;
-  transition: 0.3s;
-}
-
-/* === SECTIONS === */
-.section {
-  padding: 6rem 0 7rem;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-}
-
-.section:nth-child(even) {
-  background-color: var(--bg-secondary);
-}
-
-h2 {
-  font-weight: 700;
-  font-size: 2.3rem;
-  color: var(--accent);
-  margin-bottom: 1.2rem;
-}
-
-.section-subtitle {
-  font-size: 1.15rem;
-  color: var(--text-secondary);
-  margin-bottom: 2rem;
-  font-weight: 500;
-}
-
-.highlight {
-  background: linear-gradient(120deg, #ffecd5, #ffddb7);
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
-  font-weight: 600;
-  color: #e55a1c;
-}
-
-[data-theme="dark"] .highlight {
-  background: linear-gradient(120deg, #4a5568, #2d3748);
-  color: #f6ad55;
-}
-
-/* === FILTER BUTTONS === */
-.filter-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-  margin: 1.5rem 0 2.2rem;
-}
-
-.filter-btn {
-  padding: 0.6rem 1.2rem;
-  background: var(--bg-primary);
-  border: 1px solid var(--border-color);
-  border-radius: 30px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  color: var(--text-primary);
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.filter-btn:hover, .filter-btn.active {
-  background: var(--accent);
-  color: white;
-  border-color: var(--accent);
-}
-
-/* === ANGGOTA & KEGIATAN GRID === */
-.anggota-grid, .kegiatan-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 2rem;
-  margin-top: 1rem;
-}
-
-.anggota-card, .kegiatan-card {
-  background: var(--card-bg);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  transition: all 0.35s ease;
-  text-align: center;
-  cursor: pointer;
-}
-
-.anggota-card:hover, .kegiatan-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-hover);
-}
-
-.anggota-img, .kegiatan-img {
-  width: 100%;
-  height: 210px;
-  background-size: cover;
-  background-position: center;
-  background-color: #e2e8f0;
-}
-
-.anggota-card h3, .kegiatan-card h3 {
-  font-size: 1.2rem;
-  margin: 1.1rem 0 0.3rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.anggota-card .role {
-  font-size: 0.92rem;
-  color: var(--accent);
-  font-weight: 600;
-}
-
-.anggota-card .desc {
-  font-size: 0.82rem;
-  color: var(--text-secondary);
-  padding: 0 0.8rem 0.8rem;
-}
-
-.kegiatan-content {
-  padding: 1.3rem;
-}
-
-.kegiatan-content .date {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-  display: block;
-  margin-bottom: 0.8rem;
-}
-
-/* === FORM KEHADIRAN === */
-.form-section {
-  background: var(--card-bg);
-  border-radius: 16px;
-  padding: 2.5rem;
-  box-shadow: var(--shadow);
-  max-width: 700px;
-  width: 100%;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.6rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.radio-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 0.5rem;
-}
-
-.radio-group label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-}
-
-input, select, textarea {
-  width: 100%;
-  padding: 0.8rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: 'Poppins', sans-serif;
-}
-
-input:focus, select:focus, textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(30, 86, 160, 0.2);
-}
-
-.btn {
-  background: var(--accent);
-  color: white;
-  border: none;
-  padding: 0.9rem 1.8rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-  font-family: 'Poppins', sans-serif;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn:hover {
-  background: #1a4a8a;
-  transform: translateY(-2px);
-}
-
-.btn-export {
-  background: #e53e3e;
-}
-
-.btn-export:hover {
-  background: #c53030;
-}
-
-.btn-success {
-  background: #38a169;
-}
-
-.btn-success:hover {
-  background: #2f855a;
-}
-
-.form-footer {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  flex-wrap: wrap;
-}
-
-#formMessage {
-  margin-top: 1.2rem;
-  display: none;
-}
-
-#formMessage div {
-  padding: 1rem;
-  border-radius: 8px;
-}
-
-/* === KALENDER === */
-.calendar-container {
-  background: var(--card-bg);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  height: 600px;
-}
-
-.calendar-header {
-  padding: 1rem 1.5rem;
-  background: var(--accent);
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.calendar-content {
-  height: calc(600px - 60px);
-}
-
-.calendar-content iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-/* === LIGHTBOX === */
-.lightbox {
-  position: fixed;
-  top: 0;
+  bottom: -8px;
   left: 0;
+  width: 0;
+  height: 3px;
+  background: var(--highlight);
+  box-shadow: 0 0 6px var(--highlight);
+  transition: width 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.section:hover h2::after,
+.section.active h2::after /* if JS adds .active on scroll */ {
   width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.4s ease;
 }
 
-.lightbox.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.lightbox-content {
+/* 4. Mechanical button press (for .btn, .filter-btn) */
+.btn,
+.filter-btn {
   position: relative;
-  max-width: 90%;
-  max-height: 85vh;
-  text-align: center;
+  transform-origin: center;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.lightbox-img {
-  max-width: 100%;
-  max-height: 70vh;
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+.btn:active,
+.filter-btn:active {
+  transform: scale(0.96) translateY(2px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
 }
 
-.lightbox-info {
+/* 5. Filter button: robot servo toggle effect */
+.filter-btn {
+  border: 2px solid var(--border-color);
+  transition: all 0.35s ease;
+}
+
+.filter-btn.active {
+  background: var(--accent);
   color: white;
-  margin-top: 1.2rem;
+  border-color: var(--accent);
+  box-shadow: 
+    0 0 0 2px rgba(255,255,255,0.1),
+    0 0 8px rgba(30, 86, 160, 0.4);
+  transform: translateX(0) rotate(0.3deg);
 }
 
-.lightbox-info h3 {
-  font-size: 1.8rem;
-  color: white;
-  margin-bottom: 0.5rem;
+.filter-btn:not(.active):hover {
+  transform: translateX(6px);
+  border-color: var(--accent-light);
 }
 
-.lightbox-info p {
-  font-size: 1.1rem;
-  margin: 0.3rem 0;
+/* 6. Card hover: subtle servo-joint lift + circuit glow */
+.anggota-card,
+.kegiatan-card {
+  overflow: hidden;
+  position: relative;
 }
 
-.lightbox-close {
+.anggota-card::before,
+.kegiatan-card::before {
+  content: '';
   position: absolute;
-  top: -40px;
-  right: 0;
-  color: white;
-  font-size: 2.5rem;
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  pointer-events: none;
+  transition: border 0.4s ease;
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 900px) {
-  .section {
-    padding: 5rem 0 6rem;
-  }
-  h2 {
-    font-size: 2rem;
-  }
+.anggota-card:hover::before,
+.kegiatan-card:hover::before {
+  border-image: 
+    linear-gradient(45deg, transparent, var(--accent), var(--highlight), transparent) 1;
+  border-image-slice: 1;
+  animation: borderPulse 2s infinite;
 }
 
-@media (max-width: 768px) {
-  .nav-menu {
-    position: fixed;
-    top: 70px;
-    left: -100%;
-    flex-direction: column;
-    background: linear-gradient(135deg, var(--accent), var(--accent-light));
-    width: 100%;
-    text-align: center;
-    padding: 2rem 0;
-    transition: 0.4s ease;
-    box-shadow: 0 8px 16px rgba(30, 86, 160, 0.25);
-  }
-  .nav-menu.active {
-    left: 0;
-  }
-  .hamburger {
-    display: flex;
-  }
-  .section {
-    padding: 3.5rem 0 4.5rem;
-  }
-  .anggota-grid, .kegiatan-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .form-section {
-    padding: 1.8rem;
-  }
+@keyframes borderPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
-@media (max-width: 480px) {
-  .anggota-grid, .kegiatan-list {
-    grid-template-columns: 1fr;
-  }
-  .filter-buttons {
-    justify-content: center;
-  }
-  .logo-text {
-    font-size: 1.3rem;
-  }
-  .calendar-container {
-    height: 500px;
-  }
-  .calendar-header {
-    flex-direction: column;
-    gap: 0.8rem;
-  }
+/* 7. Highlight: LED blink effect */
+.highlight {
+  position: relative;
+}
+
+.highlight::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #ff3b00;
+  box-shadow: 0 0 0 0 rgba(255, 59, 0, 0.7);
+  animation: blinkLED 1.4s infinite;
+}
+
+@keyframes blinkLED {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 59, 0, 0); }
+  50% { box-shadow: 0 0 0 4px rgba(255, 59, 0, 0.4); }
+}
+
+[data-theme="dark"] .highlight::after {
+  background: #ff6b35;
+  animation: blinkLED 1.6s infinite;
+}
+
+/* 8. Lightbox: mechanical iris open */
+.lightbox-content {
+  opacity: 0;
+  transform: scale(0.85);
+  transition: all 0.5s cubic-bezier(0.5, 0, 0.1, 1.2);
+}
+
+.lightbox.active .lightbox-content {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 9. Calendar iframe: circuit-board frame */
+.calendar-container {
+  position: relative;
+}
+
+.calendar-container::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  pointer-events: none;
+  z-index: 1;
+  background: 
+    repeating-linear-gradient(90deg, 
+      var(--accent) 0, var(--accent) 2px, transparent 2px, transparent 8px),
+    repeating-linear-gradient(transparent 0, transparent 8px, 
+      var(--accent) 8px, var(--accent) 10px);
+  background-size: 30px 30px;
+  opacity: 0.15;
+  mask: 
+    linear-gradient(#fff 0 0) padding-box, 
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+}
+
+/* 10. Prestasi list: servo wiggle (add class if possible, or use nth-child) */
+#prestasi ul li {
+  transition: transform 0.4s ease;
+  transform-origin: left center;
+}
+
+#prestasi ul li:hover {
+  transform: translateX(4px) rotate(1deg);
+}
+
+#prestasi ul li::marker {
+  color: var(--highlight);
+}
+
+/* Optional: Add subtle glitch on hover (for advanced flair) */
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+[data-theme="dark"] .section h2:hover {
+  animation: glitch 0.3s 2;
+  color: #ffd700;
+  text-shadow: 2px 2px 0 #ff6b35, -2px -2px 0 #63b3ed;
 }
