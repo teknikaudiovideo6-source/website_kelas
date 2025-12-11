@@ -13,10 +13,10 @@
   --card-bg: #ffffff;
   --border-color: #e2e8f0;
   --shadow: 0 4px 12px rgba(0,0,0,0.08);
-  --shadow-hover: 0 10px 25px rgba(0,0,0,0.12);
+  --shadow-hover: 0 8px 16px rgba(0,0,0,0.15);
   --accent-rgb: 30, 86, 160;
   --highlight-rgb: 255, 107, 53;
-  --neon-glow: 0 0 5px var(--accent), 0 0 10px var(--accent-light); /* NEW */
+  --neon-glow: 0 0 5px var(--accent), 0 0 10px rgba(var(--accent-rgb), 0.5); 
 }
 
 [data-theme="dark"] {
@@ -30,10 +30,10 @@
   --card-bg: #2d3748;
   --border-color: #4a5568;
   --shadow: 0 4px 12px rgba(0,0,0,0.2);
-  --shadow-hover: 0 10px 25px rgba(0,0,0,0.3);
+  --shadow-hover: 0 8px 16px rgba(0,0,0,0.3);
   --accent-rgb: 99, 179, 237;
   --highlight-rgb: 246, 173, 85;
-  --neon-glow: 0 0 5px var(--accent), 0 0 10px #a4e4ff; /* NEW */
+  --neon-glow: 0 0 5px var(--accent), 0 0 10px rgba(var(--accent-rgb), 0.5);
 }
 
 [data-theme="dark"] .highlight {
@@ -52,20 +52,22 @@
 }
 
 body {
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Poppins', sans-serif;
   line-height: 1.7;
   color: var(--text-primary);
   background: var(--bg-primary);
   scroll-behavior: smooth;
   position: relative;
   overflow-x: hidden;
-  perspective: 1500px;
+  /* MENGHILANGKAN PERSPECTIVE UNTUK MENGHINDARI LAYOUT JITTER */
+  /* perspective: 1500px; */ 
 }
 
-/* --- ANIMATION BASE CLASS (Untuk semua elemen yang akan dimunculkan) --- */
+/* --- ANIMATION BASE CLASS (Inisialisasi) --- */
 .animate-init {
   opacity: 0;
-  transform: translateY(30px) scale(0.98);
+  transform: translateY(20px) scale(0.98);
+  /* Cubic-bezier ini memberikan gerakan seperti pegas yang terkontrol */
   transition: opacity 0.8s cubic-bezier(0.17, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.17, 0.84, 0.44, 1);
 }
 
@@ -77,8 +79,8 @@ body {
 
 /* --- Penyesuaian Durasi untuk Teks (Agar muncul lebih cepat) --- */
 .section h2.animate-init, .section-subtitle.animate-init {
-    transition-duration: 0.6s;
-    transform: translateY(15px);
+    transition-duration: 0.5s;
+    transform: translateY(10px);
 }
 .section-subtitle.animate-init.fade-in, .section h2.animate-init.fade-in {
     transform: translateY(0);
@@ -104,7 +106,8 @@ h2 {
 
 .section {
   padding: 6rem 0 7rem;
-  min-height: 100vh;
+  /* Dibuat lebih fleksibel, jangan selalu min-height: 100vh agar tidak ada ruang kosong aneh */
+  /* min-height: 100vh; */
   display: flex;
   align-items: center;
 }
@@ -150,11 +153,13 @@ h2 {
   align-items: center;
 }
 
-/* --- Logo & Text --- */
 .logo-wrapper {
   display: flex;
   align-items: center;
   gap: 12px;
+  /* HILANGKAN ANIMASI HINGE INI UNTUK MENGHINDARI PERMASALAHAN LAYOUT DI AWAL LOAD */
+  /* animation: hingeIn 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; */
+  /* opacity: 0; */
 }
 
 .logo-img {
@@ -171,7 +176,6 @@ h2 {
   letter-spacing: -0.5px;
 }
 
-/* --- Right Side (Toggle & Menu) --- */
 .nav-right {
   display: flex;
   align-items: center;
@@ -194,13 +198,6 @@ h2 {
   box-shadow: 0 0 0 rgba(255, 255, 255, 0);
 }
 
-.theme-toggle:hover {
-  background: rgba(255,255,255,0.3);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.3);
-  transform: scale(1.05);
-}
-
-/* --- Menu Links --- */
 .nav-menu {
   display: flex;
   gap: 1.6rem;
@@ -213,46 +210,18 @@ h2 {
   font-size: 1.05rem;
   transition: all 0.3s ease;
   position: relative;
-  transform-style: preserve-3d;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: var(--highlight);
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
+  /* HILANGKAN TRANSFORM STYLE INI KARENA BISA MEMPENGARUHI TAMPILAN 2D */
+  /* transform-style: preserve-3d; */ 
 }
 
 .nav-link:hover {
   color: #ffecd5;
-  transform: translateY(-2px) rotateX(5deg);
+  /* JANGAN GUNAKAN TRANSFORM 3D ROTATE PADA HOVER DI MOBILE */
+  /* transform: translateY(-2px) rotateX(5deg); */
+  transform: translateY(-2px);
   text-shadow: 0 0 5px rgba(255,255,255,0.5);
 }
 
-.nav-link:hover::after {
-  width: 60%;
-}
-
-/* --- Hamburger Menu --- */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-}
-
-.hamburger span {
-  width: 26px;
-  height: 3px;
-  background-color: white;
-  margin: 4px 0;
-  border-radius: 2px;
-  transition: 0.3s;
-}
 
 /* ==================================== */
 /* 4. FILTER BUTTONS */
@@ -268,15 +237,13 @@ h2 {
 .filter-btn {
   padding: 0.6rem 1.2rem;
   background: var(--bg-primary);
-  border: 1px solid var(--border-color);
+  border: 2px solid var(--border-color);
   border-radius: 30px;
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
   color: var(--text-primary);
   cursor: pointer;
-  transition: all 0.3s;
-  border: 2px solid var(--border-color);
-  transition: all 0.35s ease, border 0s;
+  transition: all 0.35s ease;
   position: relative;
   transform-origin: center;
 }
@@ -298,26 +265,23 @@ h2 {
   margin-top: 1rem;
 }
 
-/* Kartu sudah menggunakan .animate-init dari base styling */
 .anggota-card, .kegiatan-card {
   background: var(--card-bg);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow);
-  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.5), box-shadow 0.4s ease, opacity 0.8s, transform 0.8s;
+  transition: transform 0.4s ease, box-shadow 0.4s ease; /* Transisi untuk Hover */
   text-align: center;
   cursor: pointer;
   position: relative;
-  transform-style: preserve-3d;
+  /* HILANGKAN TRANSFORM STYLE 3D PADA KARTU */
+  /* transform-style: preserve-3d; */ 
 }
 
 /* --- Card Hover Effects --- */
 .anggota-card:hover, .kegiatan-card:hover {
-  transform: translateY(-10px) rotateX(2deg) rotateY(2deg) scale(1.02);
-  box-shadow: 
-    var(--shadow-hover),
-    0 0 20px rgba(var(--accent-rgb), 0.5),
-    0 0 40px rgba(var(--highlight-rgb), 0.3);
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: var(--shadow-hover);
 }
 
 .anggota-img, .kegiatan-img {
@@ -329,47 +293,11 @@ h2 {
   transition: filter 0.4s ease;
 }
 
-.anggota-card:hover .anggota-img,
-.kegiatan-card:hover .kegiatan-img {
-  filter: brightness(1.1) saturate(1.1);
-}
+/* Konten Kartu (Tetap Sama) */
+.kegiatan-content { padding: 1.3rem; }
+.anggota-card h3 { font-size: 1.2rem; margin: 1.1rem 0 0.3rem; }
+.anggota-card .role { font-size: 0.92rem; color: var(--accent); }
 
-.anggota-card h3 {
-  font-size: 1.2rem;
-  margin: 1.1rem 0 0.3rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.anggota-card .role {
-  font-size: 0.92rem;
-  color: var(--accent);
-  font-weight: 600;
-}
-
-.anggota-card .desc {
-  font-size: 0.82rem;
-  color: var(--text-secondary);
-  padding: 0 0.8rem 0.8rem;
-}
-
-.kegiatan-content {
-  padding: 1.3rem;
-}
-
-.kegiatan-card h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.kegiatan-content .date {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-  display: block;
-  margin-bottom: 0.8rem;
-}
 
 /* ==================================== */
 /* 6. FORMULIR KEHADIRAN & TOMBOL */
@@ -382,97 +310,36 @@ h2 {
   box-shadow: var(--shadow);
   max-width: 700px;
   width: 100%;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.6rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-/* --- Input Fields Styling --- */
-input:not([type="radio"]), select, textarea {
-  width: 100%;
-  padding: 0.8rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: 'Poppins', sans-serif;
-  transition: all 0.3s;
+  margin: 0 auto; /* Tengah */
 }
 
 input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.2), var(--neon-glow); /* Neon focus */
-}
-
-/* --- Buttons --- */
-.btn {
-  background: var(--accent);
-  color: white;
-  border: none;
-  padding: 0.9rem 1.8rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  font-family: 'Poppins', sans-serif;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  position: relative;
-  transform-origin: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  /* NEON FOCUS DIPERHALUS */
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.2), 0 0 8px rgba(var(--accent-rgb), 0.5); 
 }
 
 .btn:hover {
   background: var(--accent-light);
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.3), var(--neon-glow);
+  transform: translateY(-2px) scale(1.01); /* Dibuat lebih sederhana */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3), var(--neon-glow);
 }
 
-.btn-export {
-  background: #e53e3e;
-}
-
-.btn-export:hover {
-  background: #c53030;
-  box-shadow: 0 8px 15px rgba(0,0,0,0.3), 0 0 15px rgba(229, 62, 62, 0.6);
-}
 
 /* ==================================== */
-/* 7. KALENDER */
-/* ==================================== */
-.calendar-container {
-  background: var(--card-bg);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  height: 600px;
-  position: relative;
-}
-
-/* ==================================== */
-/* 9. ROBOTIC THEME ENHANCEMENTS */
+/* 7. ROBOTIC THEME ENHANCEMENTS (Cleaned Up) */
 /* ==================================== */
 
-/* 1. EFEK SIRKUIT MENYALA (Menggantikan Scanline CRT) */
-/* Diterapkan pada body untuk background halus (Opsional, bisa dihilangkan jika terlalu berat) */
+/* 1. EFEK SIRKUIT DI BACKGROUND (Ringan) */
 body {
-    /* Menambahkan background grid sirkuit yang sangat halus */
-    background-image: linear-gradient(0deg, var(--bg-primary) 98%, rgba(var(--accent-rgb), 0.05) 100%),
-                      linear-gradient(90deg, var(--bg-primary) 98%, rgba(var(--accent-rgb), 0.05) 100%);
-    background-size: 30px 30px;
+    /* Hanya menggunakan background grid halus, tidak menggunakan animasi berat di body */
+    background-image: linear-gradient(0deg, var(--bg-primary) 99%, rgba(var(--accent-rgb), 0.04) 100%),
+                      linear-gradient(90deg, var(--bg-primary) 99%, rgba(var(--accent-rgb), 0.04) 100%);
+    background-size: 25px 25px;
 }
 
-/* 2. Navbar mechanical hinge & LED strip */
+/* 2. Navbar LED strip (Stabil) */
 .navbar::after {
   content: '';
   position: absolute;
@@ -482,33 +349,21 @@ body {
     repeating-linear-gradient(
       90deg,
       var(--accent),
-      var(--accent) 12px,
-      transparent 12px,
-      transparent 24px
+      var(--accent) 10px,
+      transparent 10px,
+      transparent 20px
     );
   animation: ledPulse 2s infinite alternate;
   opacity: 0.7;
-  /* Tambahan: Neon shadow untuk LED strip */
-  box-shadow: var(--neon-glow);
+  box-shadow: 0 0 5px var(--accent);
 }
 
 @keyframes ledPulse {
-  0% { opacity: 0.4; box-shadow: 0 0 2px var(--accent); }
-  100% { opacity: 1; box-shadow: 0 0 8px var(--accent-light); }
+  0% { opacity: 0.5; box-shadow: 0 0 2px var(--accent); }
+  100% { opacity: 1; box-shadow: 0 0 6px var(--accent-light); }
 }
 
-.logo-wrapper {
-  animation: hingeIn 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
-  opacity: 0;
-}
-
-@keyframes hingeIn {
-  0% { transform: rotateX(-85deg) scale(0.8); opacity: 0; }
-  70% { transform: rotateX(15deg) scale(1.04); }
-  100% { transform: rotateX(0) scale(1); opacity: 1; }
-}
-
-/* 3. Section title: servo-unfold underline */
+/* 3. Section title underline */
 .section h2 {
   position: relative;
   display: inline-block;
@@ -526,124 +381,77 @@ body {
   transition: width 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.section:hover h2::after,
-.section.active h2::after {
+/* Gunakan kelas 'fade-in' untuk memicu underline (lebih konsisten) */
+.section h2.fade-in::after {
   width: 100%;
-  box-shadow: 0 0 10px var(--highlight); /* Neon */
+  box-shadow: 0 0 10px var(--highlight); 
 }
 
-/* 5. Filter button: robot servo toggle effect */
-.filter-btn.active {
-  background: var(--accent);
-  color: white;
-  border-color: var(--accent);
-  box-shadow:
-    0 0 0 2px rgba(255,255,255,0.1),
-    var(--neon-glow); /* Neon Active */
-  transform: translateX(0) rotate(0.3deg);
+/* 4. Card circuit glow (lebih stabil) */
+.anggota-card:hover, .kegiatan-card:hover {
+  border: 1px solid rgba(var(--accent-rgb), 0.4);
+  box-shadow: var(--shadow-hover), 0 0 10px rgba(var(--accent-rgb), 0.4);
 }
 
-.filter-btn:not(.active):hover {
-  transform: translateX(6px) scale(1.05);
-  border-color: var(--accent-light);
-  box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.3);
+/* 5. Prestasi list item (Wiggle) */
+#prestasi ul li {
+  transition: transform 0.4s ease;
+  list-style-type: none; 
+  padding-left: 0.5rem;
+  line-height: 2.2; /* Menambah ruang antar item */
 }
-
-/* 6. Card hover: subtle servo-joint lift + circuit glow */
-.anggota-card::before,
-.kegiatan-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  border: 1px solid transparent;
-  border-radius: 12px;
-  pointer-events: none;
-  transition: border 0.4s ease;
-  z-index: 10;
+#prestasi ul li::before {
+  content: '⚡';
+  color: var(--highlight);
+  margin-right: 0.5rem;
+  font-size: 0.8em;
+  display: inline-block;
+  transition: transform 0.4s ease;
 }
-
-.anggota-card:hover::before,
-.kegiatan-card:hover::before {
-  border-image:
-    linear-gradient(45deg, transparent, var(--accent), var(--highlight), transparent) 1;
-  border-image-slice: 1;
-  animation: borderPulse 2s infinite;
+#prestasi ul li:hover {
+  transform: translateX(5px);
 }
-
-@keyframes borderPulse {
-  0%, 100% { opacity: 0.8; }
-  50% { opacity: 1; box-shadow: 0 0 12px rgba(var(--highlight-rgb), 0.5); }
-}
-
-/* 9. Calendar iframe: circuit-board frame */
-.calendar-container::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  border: 2px solid transparent;
-  border-radius: 16px;
-  pointer-events: none;
-  z-index: 1;
-  background:
-    repeating-linear-gradient(90deg,
-      var(--accent) 0, var(--accent) 2px, transparent 2px, transparent 8px),
-    repeating-linear-gradient(transparent 0, transparent 8px,
-      var(--accent) 8px, var(--accent) 10px);
-  background-size: 30px 30px;
-  opacity: 0.25; /* Dibuat lebih jelas */
-  mask:
-    linear-gradient(#fff 0 0) padding-box,
-    linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  -webkit-mask-composite: xor;
-  /* Tambahan: Animasi sirkuit menyala */
-  animation: circuitGlow 3s infinite alternate;
-}
-
-@keyframes circuitGlow {
-    0% { opacity: 0.15; box-shadow: none; }
-    100% { opacity: 0.35; box-shadow: 0 0 10px var(--accent); }
+#prestasi ul li:hover::before {
+  transform: scale(1.3) rotate(-10deg);
+  text-shadow: 0 0 5px var(--highlight);
 }
 
 
 /* ==================================== */
-/* 10. RESPONSIVE MEDIA QUERIES (Optimalisasi Mobile) */
+/* 8. RESPONSIVE MEDIA QUERIES */
 /* ==================================== */
+
+@media (max-width: 900px) {
+    .section {
+        padding: 5rem 0 6rem;
+    }
+}
 
 @media (max-width: 768px) {
-  /* Navigation */
-  .nav-menu {
-    position: fixed;
-    top: 70px;
-    left: -100%;
-    flex-direction: column;
-    background: linear-gradient(135deg, var(--accent), var(--accent-light));
-    width: 100%;
-    text-align: center;
-    padding: 2rem 0;
-    transition: 0.4s ease;
-    box-shadow: 0 8px 16px rgba(30, 86, 160, 0.25);
-    z-index: 999;
-  }
-  /* Menonaktifkan 3D tilt di mobile untuk performa */
-  .anggota-card:hover, .kegiatan-card:hover {
-    transform: translateY(-5px) scale(1.01);
-    box-shadow: var(--shadow-hover);
-  }
-  .filter-btn:not(.active):hover {
-    transform: translateX(0) scale(1.05); /* Tidak ada translate X di mobile */
-  }
-
-  /* Layout */
   .section {
     padding: 3.5rem 0 4.5rem;
   }
   .anggota-grid, .kegiatan-list {
     grid-template-columns: repeat(2, 1fr);
   }
+  .form-section {
+    padding: 1.8rem;
+  }
+  /* Menonaktifkan 3D dan gerakan kompleks untuk mobile */
+  .anggota-card:hover, .kegiatan-card:hover {
+    transform: translateY(-4px);
+  }
 }
+
 @media (max-width: 480px) {
   .anggota-grid, .kegiatan-list {
     grid-template-columns: 1fr;
+  }
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .form-footer {
+    flex-direction: column;
   }
 }
