@@ -1,22 +1,24 @@
 /* ==================================== */
 /* 1. VARIABEL CSS & THEME MODE (LIGHT/DARK) */
-/* (TETAP SAMA) */
 /* ==================================== */
+
 :root {
   --bg-primary: #ffffff;
   --bg-secondary: #f8f9fa;
   --text-primary: #2d3748;
   --text-secondary: #4a5568;
-  --accent: #1e56a0;
+  --accent: #1e56a0; /* Primary Blue */
   --accent-light: #2a6bb5;
-  --highlight: #ff6b35;
+  --highlight: #ff6b35; /* Orange Highlight */
   --card-bg: #ffffff;
   --border-color: #e2e8f0;
   --shadow: 0 4px 12px rgba(0,0,0,0.08);
   --shadow-hover: 0 10px 25px rgba(0,0,0,0.12);
   --accent-rgb: 30, 86, 160;
   --highlight-rgb: 255, 107, 53;
+  --neon-glow: 0 0 5px var(--accent), 0 0 10px var(--accent-light); /* NEW */
 }
+
 [data-theme="dark"] {
   --bg-primary: #1a202c;
   --bg-secondary: #2d3748;
@@ -31,20 +33,24 @@
   --shadow-hover: 0 10px 25px rgba(0,0,0,0.3);
   --accent-rgb: 99, 179, 237;
   --highlight-rgb: 246, 173, 85;
+  --neon-glow: 0 0 5px var(--accent), 0 0 10px #a4e4ff; /* NEW */
 }
+
 [data-theme="dark"] .highlight {
   background: linear-gradient(120deg, #4a5568, #2d3748);
   color: #f6ad55;
 }
 
 /* ==================================== */
-/* 2. BASE & UTILITIES */
+/* 2. BASE & UTILITIES & ON-SCROLL ANIMATION */
 /* ==================================== */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.7;
@@ -55,43 +61,65 @@ body {
   overflow-x: hidden;
   perspective: 1500px;
 }
+
+/* --- ANIMATION BASE CLASS (Untuk semua elemen yang akan dimunculkan) --- */
+.animate-init {
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  transition: opacity 0.8s cubic-bezier(0.17, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.17, 0.84, 0.44, 1);
+}
+
+/* --- ANIMATION FINAL STATE (Kelas ini ditambahkan oleh JS) --- */
+.animate-init.fade-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* --- Penyesuaian Durasi untuk Teks (Agar muncul lebih cepat) --- */
+.section h2.animate-init, .section-subtitle.animate-init {
+    transition-duration: 0.6s;
+    transform: translateY(15px);
+}
+.section-subtitle.animate-init.fade-in, .section h2.animate-init.fade-in {
+    transform: translateY(0);
+}
+
+
 .container {
   width: 90%;
   max-width: 1140px;
   margin: 0 auto;
 }
+
 a {
   text-decoration: none;
 }
+
 h2 {
   font-weight: 700;
   font-size: 2.3rem;
   color: var(--accent);
   margin-bottom: 1.2rem;
 }
+
 .section {
   padding: 6rem 0 7rem;
   min-height: 100vh;
   display: flex;
   align-items: center;
 }
+
 .section:nth-child(even) {
   background-color: var(--bg-secondary);
 }
+
 .section-subtitle {
   font-size: 1.15rem;
   color: var(--text-secondary);
   margin-bottom: 2rem;
   font-weight: 500;
-  /* Tambahan: Awal animasi muncul untuk teks */
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
-.section-subtitle.fade-in {
-  opacity: 1;
-  transform: translateY(0);
-}
+
 .highlight {
   background: linear-gradient(120deg, #ffecd5, #ffddb7);
   padding: 0.2rem 0.4rem;
@@ -102,8 +130,8 @@ h2 {
 
 /* ==================================== */
 /* 3. HEADER & NAVIGATION */
-/* (TETAP SAMA) */
 /* ==================================== */
+
 .navbar {
   background: linear-gradient(135deg, var(--accent), var(--accent-light));
   color: white;
@@ -115,16 +143,20 @@ h2 {
   box-shadow: 0 4px 12px rgba(30, 86, 160, 0.2);
   overflow: hidden;
 }
+
 .navbar .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
+/* --- Logo & Text --- */
 .logo-wrapper {
   display: flex;
   align-items: center;
   gap: 12px;
 }
+
 .logo-img {
   height: 42px;
   width: auto;
@@ -132,16 +164,20 @@ h2 {
   background: rgba(255,255,255,0.15);
   padding: 4px;
 }
+
 .logo-text {
   font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: -0.5px;
 }
+
+/* --- Right Side (Toggle & Menu) --- */
 .nav-right {
   display: flex;
   align-items: center;
   gap: 1.2rem;
 }
+
 .theme-toggle {
   background: rgba(255,255,255,0.2);
   border: none;
@@ -157,15 +193,19 @@ h2 {
   transition: all 0.3s;
   box-shadow: 0 0 0 rgba(255, 255, 255, 0);
 }
+
 .theme-toggle:hover {
   background: rgba(255,255,255,0.3);
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.3);
   transform: scale(1.05);
 }
+
+/* --- Menu Links --- */
 .nav-menu {
   display: flex;
   gap: 1.6rem;
 }
+
 .nav-link {
   color: white;
   padding: 0.5rem 0;
@@ -175,6 +215,7 @@ h2 {
   position: relative;
   transform-style: preserve-3d;
 }
+
 .nav-link::after {
   content: '';
   position: absolute;
@@ -186,18 +227,24 @@ h2 {
   transition: all 0.3s ease;
   transform: translateX(-50%);
 }
+
 .nav-link:hover {
   color: #ffecd5;
   transform: translateY(-2px) rotateX(5deg);
+  text-shadow: 0 0 5px rgba(255,255,255,0.5);
 }
+
 .nav-link:hover::after {
   width: 60%;
 }
+
+/* --- Hamburger Menu --- */
 .hamburger {
   display: none;
   flex-direction: column;
   cursor: pointer;
 }
+
 .hamburger span {
   width: 26px;
   height: 3px;
@@ -210,12 +257,14 @@ h2 {
 /* ==================================== */
 /* 4. FILTER BUTTONS */
 /* ==================================== */
+
 .filter-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 0.8rem;
   margin: 1.5rem 0 2.2rem;
 }
+
 .filter-btn {
   padding: 0.6rem 1.2rem;
   background: var(--bg-primary);
@@ -231,6 +280,7 @@ h2 {
   position: relative;
   transform-origin: center;
 }
+
 .filter-btn:hover, .filter-btn.active {
   background: var(--accent);
   color: white;
@@ -240,6 +290,7 @@ h2 {
 /* ==================================== */
 /* 5. ANGGOTA & KEGIATAN GRID (CARD LAYOUT) */
 /* ==================================== */
+
 .anggota-grid, .kegiatan-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -247,29 +298,20 @@ h2 {
   margin-top: 1rem;
 }
 
-/* --- Base Card with INITIAL HIDDEN STATE --- */
+/* Kartu sudah menggunakan .animate-init dari base styling */
 .anggota-card, .kegiatan-card {
   background: var(--card-bg);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow);
-  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.5), box-shadow 0.4s ease, opacity 0.6s ease, transform 0.6s ease;
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.5), box-shadow 0.4s ease, opacity 0.8s, transform 0.8s;
   text-align: center;
   cursor: pointer;
   position: relative;
   transform-style: preserve-3d;
-  /* INITIAL HIDDEN STATE */
-  opacity: 0;
-  transform: translateY(40px) scale(0.95);
 }
 
-/* --- FINAL VISIBLE STATE (Class added by JavaScript on scroll) --- */
-.anggota-card.fade-in, .kegiatan-card.fade-in {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-/* --- Card Hover Effects (for desktop/when visible) --- */
+/* --- Card Hover Effects --- */
 .anggota-card:hover, .kegiatan-card:hover {
   transform: translateY(-10px) rotateX(2deg) rotateY(2deg) scale(1.02);
   box-shadow: 
@@ -286,6 +328,7 @@ h2 {
   background-color: #e2e8f0;
   transition: filter 0.4s ease;
 }
+
 .anggota-card:hover .anggota-img,
 .kegiatan-card:hover .kegiatan-img {
   filter: brightness(1.1) saturate(1.1);
@@ -297,11 +340,13 @@ h2 {
   font-weight: 600;
   color: var(--text-primary);
 }
+
 .anggota-card .role {
   font-size: 0.92rem;
   color: var(--accent);
   font-weight: 600;
 }
+
 .anggota-card .desc {
   font-size: 0.82rem;
   color: var(--text-secondary);
@@ -311,11 +356,13 @@ h2 {
 .kegiatan-content {
   padding: 1.3rem;
 }
+
 .kegiatan-card h3 {
   font-size: 1.2rem;
   font-weight: 600;
   color: var(--text-primary);
 }
+
 .kegiatan-content .date {
   font-size: 0.9rem;
   color: var(--text-secondary);
@@ -326,8 +373,8 @@ h2 {
 
 /* ==================================== */
 /* 6. FORMULIR KEHADIRAN & TOMBOL */
-/* (TETAP SAMA) */
 /* ==================================== */
+
 .form-section {
   background: var(--card-bg);
   border-radius: 16px;
@@ -336,27 +383,19 @@ h2 {
   max-width: 700px;
   width: 100%;
 }
+
 .form-group {
   margin-bottom: 1.5rem;
 }
+
 label {
   display: block;
   margin-bottom: 0.6rem;
   font-weight: 600;
   color: var(--text-primary);
 }
-.radio-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 0.5rem;
-}
-.radio-group label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-}
+
+/* --- Input Fields Styling --- */
 input:not([type="radio"]), select, textarea {
   width: 100%;
   padding: 0.8rem 1rem;
@@ -367,11 +406,14 @@ input:not([type="radio"]), select, textarea {
   font-family: 'Poppins', sans-serif;
   transition: all 0.3s;
 }
+
 input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(30, 86, 160, 0.2), 0 0 10px rgba(30, 86, 160, 0.4);
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.2), var(--neon-glow); /* Neon focus */
 }
+
+/* --- Buttons --- */
 .btn {
   background: var(--accent);
   color: white;
@@ -389,43 +431,24 @@ input:focus, select:focus, textarea:focus {
   transform-origin: center;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
+
 .btn:hover {
-  background: #1a4a8a;
+  background: var(--accent-light);
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.3), 0 0 15px rgba(var(--accent-rgb), 0.6);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.3), var(--neon-glow);
 }
+
 .btn-export {
   background: #e53e3e;
 }
+
 .btn-export:hover {
   background: #c53030;
   box-shadow: 0 8px 15px rgba(0,0,0,0.3), 0 0 15px rgba(229, 62, 62, 0.6);
 }
-.btn-success {
-  background: #38a169;
-}
-.btn-success:hover {
-  background: #2f855a;
-  box-shadow: 0 8px 15px rgba(0,0,0,0.3), 0 0 15px rgba(56, 161, 105, 0.6);
-}
-.form-footer {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  flex-wrap: wrap;
-}
-#formMessage {
-  margin-top: 1.2rem;
-  display: none;
-}
-#formMessage div {
-  padding: 1rem;
-  border-radius: 8px;
-}
 
 /* ==================================== */
 /* 7. KALENDER */
-/* (TETAP SAMA) */
 /* ==================================== */
 .calendar-container {
   background: var(--card-bg);
@@ -435,116 +458,18 @@ input:focus, select:focus, textarea:focus {
   height: 600px;
   position: relative;
 }
-.calendar-header {
-  padding: 1rem 1.5rem;
-  background: var(--accent);
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.calendar-content {
-  height: calc(600px - 60px);
-}
-.calendar-content iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-/* ==================================== */
-/* 8. LIGHTBOX (MODAL) */
-/* (TETAP SAMA) */
-/* ==================================== */
-.lightbox {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.4s ease;
-}
-.lightbox.active {
-  opacity: 1;
-  visibility: visible;
-}
-.lightbox-content {
-  position: relative;
-  max-width: 90%;
-  max-height: 85vh;
-  text-align: center;
-}
-.lightbox-img {
-  max-width: 100%;
-  max-height: 70vh;
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-.lightbox-info {
-  color: white;
-  margin-top: 1.2rem;
-}
-.lightbox-info h3 {
-  font-size: 1.8rem;
-  color: white;
-  margin-bottom: 0.5rem;
-}
-.lightbox-info p {
-  font-size: 1.1rem;
-  margin: 0.3rem 0;
-}
-.lightbox-close {
-  position: absolute;
-  top: -40px;
-  right: 0;
-  color: white;
-  font-size: 2.5rem;
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s;
-}
-.lightbox-close:hover {
-  color: var(--highlight);
-  transform: rotate(90deg) scale(1.1);
-}
 
 /* ==================================== */
 /* 9. ROBOTIC THEME ENHANCEMENTS */
-/* (TETAP SAMA) */
 /* ==================================== */
 
-/* 1. CRT scanline overlay (soft, unobtrusive) */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 1px,
-      rgba(100, 200, 255, 0.04) 1px,
-      rgba(100, 200, 255, 0.04) 2px
-    );
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.35;
-  animation: scanlineMove 10s linear infinite;
-}
-@keyframes scanlineMove {
-  0% { background-position: 0 0; }
-  100% { background-position: 0 100vh; }
+/* 1. EFEK SIRKUIT MENYALA (Menggantikan Scanline CRT) */
+/* Diterapkan pada body untuk background halus (Opsional, bisa dihilangkan jika terlalu berat) */
+body {
+    /* Menambahkan background grid sirkuit yang sangat halus */
+    background-image: linear-gradient(0deg, var(--bg-primary) 98%, rgba(var(--accent-rgb), 0.05) 100%),
+                      linear-gradient(90deg, var(--bg-primary) 98%, rgba(var(--accent-rgb), 0.05) 100%);
+    background-size: 30px 30px;
 }
 
 /* 2. Navbar mechanical hinge & LED strip */
@@ -563,16 +488,20 @@ body::before {
     );
   animation: ledPulse 2s infinite alternate;
   opacity: 0.7;
+  /* Tambahan: Neon shadow untuk LED strip */
+  box-shadow: var(--neon-glow);
 }
+
 @keyframes ledPulse {
-  0% { opacity: 0.4; }
-  100% { opacity: 1; box-shadow: 0 0 6px var(--accent); }
+  0% { opacity: 0.4; box-shadow: 0 0 2px var(--accent); }
+  100% { opacity: 1; box-shadow: 0 0 8px var(--accent-light); }
 }
+
 .logo-wrapper {
   animation: hingeIn 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
   opacity: 0;
 }
-.logo-wrapper:nth-child(1) { opacity: 1; }
+
 @keyframes hingeIn {
   0% { transform: rotateX(-85deg) scale(0.8); opacity: 0; }
   70% { transform: rotateX(15deg) scale(1.04); }
@@ -584,6 +513,7 @@ body::before {
   position: relative;
   display: inline-block;
 }
+
 .section h2::after {
   content: '';
   position: absolute;
@@ -595,16 +525,11 @@ body::before {
   box-shadow: 0 0 6px var(--highlight);
   transition: width 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
+
 .section:hover h2::after,
 .section.active h2::after {
   width: 100%;
-}
-
-/* 4. Mechanical button press (for .btn, .filter-btn) */
-.btn:active,
-.filter-btn:active {
-  transform: scale(0.96) translateY(2px) !important;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+  box-shadow: 0 0 10px var(--highlight); /* Neon */
 }
 
 /* 5. Filter button: robot servo toggle effect */
@@ -614,9 +539,10 @@ body::before {
   border-color: var(--accent);
   box-shadow:
     0 0 0 2px rgba(255,255,255,0.1),
-    0 0 8px rgba(30, 86, 160, 0.4);
+    var(--neon-glow); /* Neon Active */
   transform: translateX(0) rotate(0.3deg);
 }
+
 .filter-btn:not(.active):hover {
   transform: translateX(6px) scale(1.05);
   border-color: var(--accent-light);
@@ -635,6 +561,7 @@ body::before {
   transition: border 0.4s ease;
   z-index: 10;
 }
+
 .anggota-card:hover::before,
 .kegiatan-card:hover::before {
   border-image:
@@ -642,44 +569,10 @@ body::before {
   border-image-slice: 1;
   animation: borderPulse 2s infinite;
 }
+
 @keyframes borderPulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-
-/* 7. Highlight: LED blink effect */
-.highlight {
-  position: relative;
-  overflow: visible;
-}
-.highlight::after {
-  content: '';
-  position: absolute;
-  top: 0; right: 0;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: #ff3b00;
-  box-shadow: 0 0 0 0 rgba(255, 59, 0, 0.7);
-  animation: blinkLED 1.4s infinite;
-}
-@keyframes blinkLED {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 59, 0, 0); }
-  50% { box-shadow: 0 0 0 4px rgba(255, 59, 0, 0.4); }
-}
-[data-theme="dark"] .highlight::after {
-  background: #ff6b35;
-  animation: blinkLED 1.6s infinite;
-}
-
-/* 8. Lightbox: mechanical iris open */
-.lightbox-content {
-  opacity: 0;
-  transform: scale(0.85);
-  transition: all 0.5s cubic-bezier(0.5, 0, 0.1, 1.2);
-}
-.lightbox.active .lightbox-content {
-  opacity: 1;
-  transform: scale(1);
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; box-shadow: 0 0 12px rgba(var(--highlight-rgb), 0.5); }
 }
 
 /* 9. Calendar iframe: circuit-board frame */
@@ -697,63 +590,26 @@ body::before {
     repeating-linear-gradient(transparent 0, transparent 8px,
       var(--accent) 8px, var(--accent) 10px);
   background-size: 30px 30px;
-  opacity: 0.15;
+  opacity: 0.25; /* Dibuat lebih jelas */
   mask:
     linear-gradient(#fff 0 0) padding-box,
     linear-gradient(#fff 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: xor;
+  /* Tambahan: Animasi sirkuit menyala */
+  animation: circuitGlow 3s infinite alternate;
 }
 
-/* 10. Prestasi list: servo wiggle */
-#prestasi ul li {
-  transition: transform 0.4s ease;
-  transform-origin: left center;
-  padding-left: 0.5rem;
-  list-style-type: none; 
-}
-#prestasi ul li::before {
-  content: '⚡';
-  color: var(--highlight);
-  margin-right: 0.5rem;
-  font-size: 0.8em;
-  display: inline-block;
-  transition: transform 0.4s ease;
-}
-#prestasi ul li:hover {
-  transform: translateX(8px) rotate(0.5deg);
-}
-#prestasi ul li:hover::before {
-  transform: scale(1.5) rotate(-15deg);
-  text-shadow: 0 0 5px var(--highlight);
+@keyframes circuitGlow {
+    0% { opacity: 0.15; box-shadow: none; }
+    100% { opacity: 0.35; box-shadow: 0 0 10px var(--accent); }
 }
 
-/* Optional: Glitch effect for dark mode headings */
-@keyframes glitch {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
-  100% { transform: translate(0); }
-}
-[data-theme="dark"] .section h2:hover {
-  animation: glitch 0.3s 2;
-  color: #ffd700;
-  text-shadow: 2px 2px 0 #ff6b35, -2px -2px 0 #63b3ed;
-}
 
 /* ==================================== */
-/* 10. RESPONSIVE MEDIA QUERIES (Original) */
+/* 10. RESPONSIVE MEDIA QUERIES (Optimalisasi Mobile) */
 /* ==================================== */
-@media (max-width: 900px) {
-  .section {
-    padding: 5rem 0 6rem;
-  }
-  h2 {
-    font-size: 2rem;
-  }
-}
+
 @media (max-width: 768px) {
   /* Navigation */
   .nav-menu {
@@ -769,19 +625,13 @@ body::before {
     box-shadow: 0 8px 16px rgba(30, 86, 160, 0.25);
     z-index: 999;
   }
-  .nav-menu.active {
-    left: 0;
-  }
-  .nav-link {
-      padding: 1rem 0;
-  }
-  .hamburger {
-    display: flex;
-  }
   /* Menonaktifkan 3D tilt di mobile untuk performa */
   .anggota-card:hover, .kegiatan-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-5px) scale(1.01);
     box-shadow: var(--shadow-hover);
+  }
+  .filter-btn:not(.active):hover {
+    transform: translateX(0) scale(1.05); /* Tidak ada translate X di mobile */
   }
 
   /* Layout */
@@ -791,41 +641,9 @@ body::before {
   .anggota-grid, .kegiatan-list {
     grid-template-columns: repeat(2, 1fr);
   }
-  .form-section {
-    padding: 1.8rem;
-  }
 }
 @media (max-width: 480px) {
-  /* Layout */
   .anggota-grid, .kegiatan-list {
     grid-template-columns: 1fr;
-  }
-
-  /* Utilities */
-  .filter-buttons {
-    justify-content: center;
-  }
-
-  /* Header */
-  .logo-text {
-    font-size: 1.3rem;
-  }
-
-  /* Calendar */
-  .calendar-container {
-    height: 500px;
-  }
-  .calendar-header {
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  /* Forms */
-  .btn {
-    width: 100%;
-    justify-content: center;
-  }
-  .form-footer {
-    flex-direction: column;
   }
 }
