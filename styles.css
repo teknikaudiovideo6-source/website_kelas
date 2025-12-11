@@ -1,23 +1,22 @@
 /* ==================================== */
 /* 1. VARIABEL CSS & THEME MODE (LIGHT/DARK) */
+/* (TETAP SAMA) */
 /* ==================================== */
-
-/* --- Light Mode (Default) --- */
 :root {
   --bg-primary: #ffffff;
   --bg-secondary: #f8f9fa;
   --text-primary: #2d3748;
   --text-secondary: #4a5568;
-  --accent: #1e56a0; /* Primary Blue */
+  --accent: #1e56a0;
   --accent-light: #2a6bb5;
-  --highlight: #ff6b35; /* Orange Highlight */
+  --highlight: #ff6b35;
   --card-bg: #ffffff;
   --border-color: #e2e8f0;
   --shadow: 0 4px 12px rgba(0,0,0,0.08);
   --shadow-hover: 0 10px 25px rgba(0,0,0,0.12);
+  --accent-rgb: 30, 86, 160;
+  --highlight-rgb: 255, 107, 53;
 }
-
-/* --- Dark Mode --- */
 [data-theme="dark"] {
   --bg-primary: #1a202c;
   --bg-secondary: #2d3748;
@@ -30,9 +29,9 @@
   --border-color: #4a5568;
   --shadow: 0 4px 12px rgba(0,0,0,0.2);
   --shadow-hover: 0 10px 25px rgba(0,0,0,0.3);
+  --accent-rgb: 99, 179, 237;
+  --highlight-rgb: 246, 173, 85;
 }
-
-/* --- Dark Mode Highlight Adjustment --- */
 [data-theme="dark"] .highlight {
   background: linear-gradient(120deg, #4a5568, #2d3748);
   color: #f6ad55;
@@ -41,13 +40,11 @@
 /* ==================================== */
 /* 2. BASE & UTILITIES */
 /* ==================================== */
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.7;
@@ -56,47 +53,45 @@ body {
   scroll-behavior: smooth;
   position: relative;
   overflow-x: hidden;
-  /* Tambahan: Perspektif untuk efek 3D tilt */
   perspective: 1500px;
 }
-
 .container {
   width: 90%;
   max-width: 1140px;
   margin: 0 auto;
 }
-
 a {
   text-decoration: none;
 }
-
-/* --- Headings & Section Styling --- */
 h2 {
   font-weight: 700;
   font-size: 2.3rem;
   color: var(--accent);
   margin-bottom: 1.2rem;
 }
-
 .section {
   padding: 6rem 0 7rem;
   min-height: 100vh;
   display: flex;
   align-items: center;
 }
-
 .section:nth-child(even) {
   background-color: var(--bg-secondary);
 }
-
 .section-subtitle {
   font-size: 1.15rem;
   color: var(--text-secondary);
   margin-bottom: 2rem;
   font-weight: 500;
+  /* Tambahan: Awal animasi muncul untuk teks */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
-
-/* Base Highlight Style */
+.section-subtitle.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
 .highlight {
   background: linear-gradient(120deg, #ffecd5, #ffddb7);
   padding: 0.2rem 0.4rem;
@@ -107,8 +102,8 @@ h2 {
 
 /* ==================================== */
 /* 3. HEADER & NAVIGATION */
+/* (TETAP SAMA) */
 /* ==================================== */
-
 .navbar {
   background: linear-gradient(135deg, var(--accent), var(--accent-light));
   color: white;
@@ -120,20 +115,16 @@ h2 {
   box-shadow: 0 4px 12px rgba(30, 86, 160, 0.2);
   overflow: hidden;
 }
-
 .navbar .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
-/* --- Logo & Text --- */
 .logo-wrapper {
   display: flex;
   align-items: center;
   gap: 12px;
 }
-
 .logo-img {
   height: 42px;
   width: auto;
@@ -141,20 +132,16 @@ h2 {
   background: rgba(255,255,255,0.15);
   padding: 4px;
 }
-
 .logo-text {
   font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: -0.5px;
 }
-
-/* --- Right Side (Toggle & Menu) --- */
 .nav-right {
   display: flex;
   align-items: center;
   gap: 1.2rem;
 }
-
 .theme-toggle {
   background: rgba(255,255,255,0.2);
   border: none;
@@ -168,23 +155,17 @@ h2 {
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
-  /* Hover effect tambahan */
   box-shadow: 0 0 0 rgba(255, 255, 255, 0);
 }
-
 .theme-toggle:hover {
   background: rgba(255,255,255,0.3);
-  /* Hover effect tambahan: Glow */
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.3);
   transform: scale(1.05);
 }
-
-/* --- Menu Links --- */
 .nav-menu {
   display: flex;
   gap: 1.6rem;
 }
-
 .nav-link {
   color: white;
   padding: 0.5rem 0;
@@ -192,10 +173,8 @@ h2 {
   font-size: 1.05rem;
   transition: all 0.3s ease;
   position: relative;
-  /* Tambahan: Hover 3D */
   transform-style: preserve-3d;
 }
-
 .nav-link::after {
   content: '';
   position: absolute;
@@ -207,24 +186,18 @@ h2 {
   transition: all 0.3s ease;
   transform: translateX(-50%);
 }
-
 .nav-link:hover {
   color: #ffecd5;
-  /* Hover effect tambahan: sedikit tilt ke atas */
   transform: translateY(-2px) rotateX(5deg);
 }
-
 .nav-link:hover::after {
   width: 60%;
 }
-
-/* --- Hamburger Menu --- */
 .hamburger {
   display: none;
   flex-direction: column;
   cursor: pointer;
 }
-
 .hamburger span {
   width: 26px;
   height: 3px;
@@ -237,15 +210,12 @@ h2 {
 /* ==================================== */
 /* 4. FILTER BUTTONS */
 /* ==================================== */
-
 .filter-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 0.8rem;
   margin: 1.5rem 0 2.2rem;
 }
-
-/* Hover style diperbarui di bagian 9 */
 .filter-btn {
   padding: 0.6rem 1.2rem;
   background: var(--bg-primary);
@@ -256,13 +226,11 @@ h2 {
   color: var(--text-primary);
   cursor: pointer;
   transition: all 0.3s;
-  /* Diperbarui oleh robotic theme */
   border: 2px solid var(--border-color);
   transition: all 0.35s ease, border 0s;
   position: relative;
   transform-origin: center;
 }
-
 .filter-btn:hover, .filter-btn.active {
   background: var(--accent);
   color: white;
@@ -272,7 +240,6 @@ h2 {
 /* ==================================== */
 /* 5. ANGGOTA & KEGIATAN GRID (CARD LAYOUT) */
 /* ==================================== */
-
 .anggota-grid, .kegiatan-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -280,90 +247,75 @@ h2 {
   margin-top: 1rem;
 }
 
+/* --- Base Card with INITIAL HIDDEN STATE --- */
 .anggota-card, .kegiatan-card {
   background: var(--card-bg);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow);
-  /* Perubahan: Transisi yang lebih halus dan mendukung 3D */
-  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.5), box-shadow 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.5), box-shadow 0.4s ease, opacity 0.6s ease, transform 0.6s ease;
   text-align: center;
   cursor: pointer;
   position: relative;
-  /* Tambahan: Untuk 3D tilt */
   transform-style: preserve-3d;
+  /* INITIAL HIDDEN STATE */
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
 }
 
-/* Hover Kartu yang Keren dan Robotik */
+/* --- FINAL VISIBLE STATE (Class added by JavaScript on scroll) --- */
+.anggota-card.fade-in, .kegiatan-card.fade-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* --- Card Hover Effects (for desktop/when visible) --- */
 .anggota-card:hover, .kegiatan-card:hover {
-  /* Efek Lift dan 3D Tilt */
   transform: translateY(-10px) rotateX(2deg) rotateY(2deg) scale(1.02);
-  /* Box Shadow Neon / Glow */
   box-shadow: 
     var(--shadow-hover),
-    0 0 20px rgba(var(--accent-rgb), 0.5), /* Neon Aksen */
-    0 0 40px rgba(var(--highlight-rgb), 0.3); /* Neon Highlight */
+    0 0 20px rgba(var(--accent-rgb), 0.5),
+    0 0 40px rgba(var(--highlight-rgb), 0.3);
 }
 
-/* Penyesuaian RGB untuk Light/Dark Mode (Perlu didefinisikan di variabel, 
-   tapi kita pakai yang umum dulu untuk tujuan demo) */
-:root {
-  --accent-rgb: 30, 86, 160;
-  --highlight-rgb: 255, 107, 53;
-}
-[data-theme="dark"] {
-  --accent-rgb: 99, 179, 237;
-  --highlight-rgb: 246, 173, 85;
-}
-
-
-/* --- Card Media --- */
 .anggota-img, .kegiatan-img {
   width: 100%;
   height: 210px;
   background-size: cover;
   background-position: center;
   background-color: #e2e8f0;
-  /* Tambahan: Efek gambar menyala */
   transition: filter 0.4s ease;
 }
-
 .anggota-card:hover .anggota-img,
 .kegiatan-card:hover .kegiatan-img {
   filter: brightness(1.1) saturate(1.1);
 }
 
-/* --- Anggota Specific Content --- */
 .anggota-card h3 {
   font-size: 1.2rem;
   margin: 1.1rem 0 0.3rem;
   font-weight: 600;
   color: var(--text-primary);
 }
-
 .anggota-card .role {
   font-size: 0.92rem;
   color: var(--accent);
   font-weight: 600;
 }
-
 .anggota-card .desc {
   font-size: 0.82rem;
   color: var(--text-secondary);
   padding: 0 0.8rem 0.8rem;
 }
 
-/* --- Kegiatan Specific Content --- */
 .kegiatan-content {
   padding: 1.3rem;
 }
-
 .kegiatan-card h3 {
   font-size: 1.2rem;
   font-weight: 600;
   color: var(--text-primary);
 }
-
 .kegiatan-content .date {
   font-size: 0.9rem;
   color: var(--text-secondary);
@@ -374,8 +326,8 @@ h2 {
 
 /* ==================================== */
 /* 6. FORMULIR KEHADIRAN & TOMBOL */
+/* (TETAP SAMA) */
 /* ==================================== */
-
 .form-section {
   background: var(--card-bg);
   border-radius: 16px;
@@ -384,34 +336,27 @@ h2 {
   max-width: 700px;
   width: 100%;
 }
-
 .form-group {
   margin-bottom: 1.5rem;
 }
-
 label {
   display: block;
   margin-bottom: 0.6rem;
   font-weight: 600;
   color: var(--text-primary);
 }
-
-/* --- Radio Buttons Styling --- */
 .radio-group {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 0.5rem;
 }
-
 .radio-group label {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
 }
-
-/* --- Input Fields Styling --- */
 input:not([type="radio"]), select, textarea {
   width: 100%;
   padding: 0.8rem 1rem;
@@ -422,14 +367,11 @@ input:not([type="radio"]), select, textarea {
   font-family: 'Poppins', sans-serif;
   transition: all 0.3s;
 }
-
 input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(30, 86, 160, 0.2), 0 0 10px rgba(30, 86, 160, 0.4); /* Tambahan Glow */
+  box-shadow: 0 0 0 3px rgba(30, 86, 160, 0.2), 0 0 10px rgba(30, 86, 160, 0.4);
 }
-
-/* --- Buttons (modified by robotic theme) --- */
 .btn {
   background: var(--accent);
   color: white;
@@ -438,54 +380,44 @@ input:focus, select:focus, textarea:focus {
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   font-family: 'Poppins', sans-serif;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   position: relative;
   transform-origin: center;
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
-
 .btn:hover {
   background: #1a4a8a;
-  transform: translateY(-4px) scale(1.02); /* Lebih agresif */
-  box-shadow: 0 8px 15px rgba(0,0,0,0.3), 0 0 15px rgba(var(--accent-rgb), 0.6); /* Glow on hover */
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.3), 0 0 15px rgba(var(--accent-rgb), 0.6);
 }
-
 .btn-export {
   background: #e53e3e;
 }
-
 .btn-export:hover {
   background: #c53030;
   box-shadow: 0 8px 15px rgba(0,0,0,0.3), 0 0 15px rgba(229, 62, 62, 0.6);
 }
-
 .btn-success {
   background: #38a169;
 }
-
 .btn-success:hover {
   background: #2f855a;
   box-shadow: 0 8px 15px rgba(0,0,0,0.3), 0 0 15px rgba(56, 161, 105, 0.6);
 }
-
 .form-footer {
   display: flex;
   gap: 1rem;
   margin-top: 1.5rem;
   flex-wrap: wrap;
 }
-
-/* --- Form Message Area --- */
 #formMessage {
   margin-top: 1.2rem;
   display: none;
 }
-
 #formMessage div {
   padding: 1rem;
   border-radius: 8px;
@@ -493,8 +425,8 @@ input:focus, select:focus, textarea:focus {
 
 /* ==================================== */
 /* 7. KALENDER */
+/* (TETAP SAMA) */
 /* ==================================== */
-
 .calendar-container {
   background: var(--card-bg);
   border-radius: 16px;
@@ -503,7 +435,6 @@ input:focus, select:focus, textarea:focus {
   height: 600px;
   position: relative;
 }
-
 .calendar-header {
   padding: 1rem 1.5rem;
   background: var(--accent);
@@ -512,11 +443,9 @@ input:focus, select:focus, textarea:focus {
   justify-content: space-between;
   align-items: center;
 }
-
 .calendar-content {
   height: calc(600px - 60px);
 }
-
 .calendar-content iframe {
   width: 100%;
   height: 100%;
@@ -525,8 +454,8 @@ input:focus, select:focus, textarea:focus {
 
 /* ==================================== */
 /* 8. LIGHTBOX (MODAL) */
+/* (TETAP SAMA) */
 /* ==================================== */
-
 .lightbox {
   position: fixed;
   top: 0;
@@ -542,42 +471,35 @@ input:focus, select:focus, textarea:focus {
   visibility: hidden;
   transition: all 0.4s ease;
 }
-
 .lightbox.active {
   opacity: 1;
   visibility: visible;
 }
-
 .lightbox-content {
   position: relative;
   max-width: 90%;
   max-height: 85vh;
   text-align: center;
 }
-
 .lightbox-img {
   max-width: 100%;
   max-height: 70vh;
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
-
 .lightbox-info {
   color: white;
   margin-top: 1.2rem;
 }
-
 .lightbox-info h3 {
   font-size: 1.8rem;
   color: white;
   margin-bottom: 0.5rem;
 }
-
 .lightbox-info p {
   font-size: 1.1rem;
   margin: 0.3rem 0;
 }
-
 .lightbox-close {
   position: absolute;
   top: -40px;
@@ -590,17 +512,16 @@ input:focus, select:focus, textarea:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Hover effect tambahan */
   transition: all 0.3s;
 }
-
 .lightbox-close:hover {
   color: var(--highlight);
   transform: rotate(90deg) scale(1.1);
 }
 
 /* ==================================== */
-/* 9. ROBOTIC THEME ENHANCEMENTS (NEW STYLES) */
+/* 9. ROBOTIC THEME ENHANCEMENTS */
+/* (TETAP SAMA) */
 /* ==================================== */
 
 /* 1. CRT scanline overlay (soft, unobtrusive) */
@@ -621,7 +542,6 @@ body::before {
   opacity: 0.35;
   animation: scanlineMove 10s linear infinite;
 }
-
 @keyframes scanlineMove {
   0% { background-position: 0 0; }
   100% { background-position: 0 100vh; }
@@ -644,19 +564,15 @@ body::before {
   animation: ledPulse 2s infinite alternate;
   opacity: 0.7;
 }
-
 @keyframes ledPulse {
   0% { opacity: 0.4; }
   100% { opacity: 1; box-shadow: 0 0 6px var(--accent); }
 }
-
 .logo-wrapper {
   animation: hingeIn 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
   opacity: 0;
 }
-
 .logo-wrapper:nth-child(1) { opacity: 1; }
-
 @keyframes hingeIn {
   0% { transform: rotateX(-85deg) scale(0.8); opacity: 0; }
   70% { transform: rotateX(15deg) scale(1.04); }
@@ -668,7 +584,6 @@ body::before {
   position: relative;
   display: inline-block;
 }
-
 .section h2::after {
   content: '';
   position: absolute;
@@ -680,7 +595,6 @@ body::before {
   box-shadow: 0 0 6px var(--highlight);
   transition: width 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
-
 .section:hover h2::after,
 .section.active h2::after {
   width: 100%;
@@ -693,7 +607,7 @@ body::before {
   box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
 }
 
-/* 5. Filter button: robot servo toggle effect (DIOPTIMALKAN HOVERNYA) */
+/* 5. Filter button: robot servo toggle effect */
 .filter-btn.active {
   background: var(--accent);
   color: white;
@@ -703,9 +617,7 @@ body::before {
     0 0 8px rgba(30, 86, 160, 0.4);
   transform: translateX(0) rotate(0.3deg);
 }
-
 .filter-btn:not(.active):hover {
-  /* Efek tarik servo lebih terasa */
   transform: translateX(6px) scale(1.05);
   border-color: var(--accent-light);
   box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.3);
@@ -723,7 +635,6 @@ body::before {
   transition: border 0.4s ease;
   z-index: 10;
 }
-
 .anggota-card:hover::before,
 .kegiatan-card:hover::before {
   border-image:
@@ -731,7 +642,6 @@ body::before {
   border-image-slice: 1;
   animation: borderPulse 2s infinite;
 }
-
 @keyframes borderPulse {
   0%, 100% { opacity: 0.6; }
   50% { opacity: 1; }
@@ -742,7 +652,6 @@ body::before {
   position: relative;
   overflow: visible;
 }
-
 .highlight::after {
   content: '';
   position: absolute;
@@ -753,12 +662,10 @@ body::before {
   box-shadow: 0 0 0 0 rgba(255, 59, 0, 0.7);
   animation: blinkLED 1.4s infinite;
 }
-
 @keyframes blinkLED {
   0%, 100% { box-shadow: 0 0 0 0 rgba(255, 59, 0, 0); }
   50% { box-shadow: 0 0 0 4px rgba(255, 59, 0, 0.4); }
 }
-
 [data-theme="dark"] .highlight::after {
   background: #ff6b35;
   animation: blinkLED 1.6s infinite;
@@ -770,7 +677,6 @@ body::before {
   transform: scale(0.85);
   transition: all 0.5s cubic-bezier(0.5, 0, 0.1, 1.2);
 }
-
 .lightbox.active .lightbox-content {
   opacity: 1;
   transform: scale(1);
@@ -803,29 +709,24 @@ body::before {
 #prestasi ul li {
   transition: transform 0.4s ease;
   transform-origin: left center;
-  /* Tambahan: Marker glow */
   padding-left: 0.5rem;
   list-style-type: none; 
 }
-
 #prestasi ul li::before {
-  content: '⚡'; /* Simbol robotik */
+  content: '⚡';
   color: var(--highlight);
   margin-right: 0.5rem;
   font-size: 0.8em;
   display: inline-block;
   transition: transform 0.4s ease;
 }
-
 #prestasi ul li:hover {
-  transform: translateX(8px) rotate(0.5deg); /* Lebih berani */
+  transform: translateX(8px) rotate(0.5deg);
 }
-
 #prestasi ul li:hover::before {
   transform: scale(1.5) rotate(-15deg);
   text-shadow: 0 0 5px var(--highlight);
 }
-
 
 /* Optional: Glitch effect for dark mode headings */
 @keyframes glitch {
@@ -836,7 +737,6 @@ body::before {
   80% { transform: translate(2px, -2px); }
   100% { transform: translate(0); }
 }
-
 [data-theme="dark"] .section h2:hover {
   animation: glitch 0.3s 2;
   color: #ffd700;
@@ -846,8 +746,6 @@ body::before {
 /* ==================================== */
 /* 10. RESPONSIVE MEDIA QUERIES (Original) */
 /* ==================================== */
-
-/* --- Tablet (Max 900px) --- */
 @media (max-width: 900px) {
   .section {
     padding: 5rem 0 6rem;
@@ -856,8 +754,6 @@ body::before {
     font-size: 2rem;
   }
 }
-
-/* --- Mobile / Small Tablet (Max 768px) --- */
 @media (max-width: 768px) {
   /* Navigation */
   .nav-menu {
@@ -882,9 +778,8 @@ body::before {
   .hamburger {
     display: flex;
   }
-  /* Non-mobile element adjustments */
+  /* Menonaktifkan 3D tilt di mobile untuk performa */
   .anggota-card:hover, .kegiatan-card:hover {
-    /* Menonaktifkan 3D tilt di mobile untuk performa */
     transform: translateY(-8px);
     box-shadow: var(--shadow-hover);
   }
@@ -900,8 +795,6 @@ body::before {
     padding: 1.8rem;
   }
 }
-
-/* --- Small Mobile (Max 480px) --- */
 @media (max-width: 480px) {
   /* Layout */
   .anggota-grid, .kegiatan-list {
