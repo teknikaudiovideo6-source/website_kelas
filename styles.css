@@ -1,22 +1,15 @@
-/* ==================================== */
-/* 1. VARIABEL CSS & THEME MODE (LIGHT/DARK) */
-/* ==================================== */
-
 :root {
   --bg-primary: #ffffff;
   --bg-secondary: #f8f9fa;
   --text-primary: #2d3748;
   --text-secondary: #4a5568;
-  --accent: #1e56a0; /* Primary Blue */
+  --accent: #1e56a0;
   --accent-light: #2a6bb5;
-  --highlight: #ff6b35; /* Orange Highlight */
+  --highlight: #ff6b35;
   --card-bg: #ffffff;
   --border-color: #e2e8f0;
   --shadow: 0 4px 12px rgba(0,0,0,0.08);
-  --shadow-hover: 0 8px 16px rgba(0,0,0,0.15);
-  --accent-rgb: 30, 86, 160;
-  --highlight-rgb: 255, 107, 53;
-  --neon-glow: 0 0 5px var(--accent), 0 0 10px rgba(var(--accent-rgb), 0.5); 
+  --shadow-hover: 0 10px 25px rgba(0,0,0,0.12);
 }
 
 [data-theme="dark"] {
@@ -30,20 +23,8 @@
   --card-bg: #2d3748;
   --border-color: #4a5568;
   --shadow: 0 4px 12px rgba(0,0,0,0.2);
-  --shadow-hover: 0 8px 16px rgba(0,0,0,0.3);
-  --accent-rgb: 99, 179, 237;
-  --highlight-rgb: 246, 173, 85;
-  --neon-glow: 0 0 5px var(--accent), 0 0 10px rgba(var(--accent-rgb), 0.5);
+  --shadow-hover: 0 10px 25px rgba(0,0,0,0.3);
 }
-
-[data-theme="dark"] .highlight {
-  background: linear-gradient(120deg, #4a5568, #2d3748);
-  color: #f6ad55;
-}
-
-/* ==================================== */
-/* 2. BASE & UTILITIES & ON-SCROLL ANIMATION */
-/* ==================================== */
 
 * {
   margin: 0;
@@ -52,40 +33,14 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.7;
   color: var(--text-primary);
   background: var(--bg-primary);
   scroll-behavior: smooth;
   position: relative;
   overflow-x: hidden;
-  /* MENGHILANGKAN PERSPECTIVE UNTUK MENGHINDARI LAYOUT JITTER */
-  /* perspective: 1500px; */ 
 }
-
-/* --- ANIMATION BASE CLASS (Inisialisasi) --- */
-.animate-init {
-  opacity: 0;
-  transform: translateY(20px) scale(0.98);
-  /* Cubic-bezier ini memberikan gerakan seperti pegas yang terkontrol */
-  transition: opacity 0.8s cubic-bezier(0.17, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.17, 0.84, 0.44, 1);
-}
-
-/* --- ANIMATION FINAL STATE (Kelas ini ditambahkan oleh JS) --- */
-.animate-init.fade-in {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-/* --- Penyesuaian Durasi untuk Teks (Agar muncul lebih cepat) --- */
-.section h2.animate-init, .section-subtitle.animate-init {
-    transition-duration: 0.5s;
-    transform: translateY(10px);
-}
-.section-subtitle.animate-init.fade-in, .section h2.animate-init.fade-in {
-    transform: translateY(0);
-}
-
 
 .container {
   width: 90%;
@@ -93,48 +48,7 @@ body {
   margin: 0 auto;
 }
 
-a {
-  text-decoration: none;
-}
-
-h2 {
-  font-weight: 700;
-  font-size: 2.3rem;
-  color: var(--accent);
-  margin-bottom: 1.2rem;
-}
-
-.section {
-  padding: 6rem 0 7rem;
-  /* Dibuat lebih fleksibel, jangan selalu min-height: 100vh agar tidak ada ruang kosong aneh */
-  /* min-height: 100vh; */
-  display: flex;
-  align-items: center;
-}
-
-.section:nth-child(even) {
-  background-color: var(--bg-secondary);
-}
-
-.section-subtitle {
-  font-size: 1.15rem;
-  color: var(--text-secondary);
-  margin-bottom: 2rem;
-  font-weight: 500;
-}
-
-.highlight {
-  background: linear-gradient(120deg, #ffecd5, #ffddb7);
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
-  font-weight: 600;
-  color: #e55a1c;
-}
-
-/* ==================================== */
-/* 3. HEADER & NAVIGATION */
-/* ==================================== */
-
+/* === HEADER === */
 .navbar {
   background: linear-gradient(135deg, var(--accent), var(--accent-light));
   color: white;
@@ -144,7 +58,6 @@ h2 {
   width: 100%;
   z-index: 1000;
   box-shadow: 0 4px 12px rgba(30, 86, 160, 0.2);
-  overflow: hidden;
 }
 
 .navbar .container {
@@ -157,9 +70,6 @@ h2 {
   display: flex;
   align-items: center;
   gap: 12px;
-  /* HILANGKAN ANIMASI HINGE INI UNTUK MENGHINDARI PERMASALAHAN LAYOUT DI AWAL LOAD */
-  /* animation: hingeIn 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; */
-  /* opacity: 0; */
 }
 
 .logo-img {
@@ -195,7 +105,10 @@ h2 {
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
-  box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+}
+
+.theme-toggle:hover {
+  background: rgba(255,255,255,0.3);
 }
 
 .nav-menu {
@@ -205,28 +118,89 @@ h2 {
 
 .nav-link {
   color: white;
+  text-decoration: none;
   padding: 0.5rem 0;
   font-weight: 500;
   font-size: 1.05rem;
   transition: all 0.3s ease;
   position: relative;
-  /* HILANGKAN TRANSFORM STYLE INI KARENA BISA MEMPENGARUHI TAMPILAN 2D */
-  /* transform-style: preserve-3d; */ 
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--highlight);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
 }
 
 .nav-link:hover {
   color: #ffecd5;
-  /* JANGAN GUNAKAN TRANSFORM 3D ROTATE PADA HOVER DI MOBILE */
-  /* transform: translateY(-2px) rotateX(5deg); */
-  transform: translateY(-2px);
-  text-shadow: 0 0 5px rgba(255,255,255,0.5);
 }
 
+.nav-link:hover::after {
+  width: 60%;
+}
 
-/* ==================================== */
-/* 4. FILTER BUTTONS */
-/* ==================================== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
 
+.hamburger span {
+  width: 26px;
+  height: 3px;
+  background-color: white;
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* === SECTIONS === */
+.section {
+  padding: 6rem 0 7rem;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.section:nth-child(even) {
+  background-color: var(--bg-secondary);
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 2.3rem;
+  color: var(--accent);
+  margin-bottom: 1.2rem;
+}
+
+.section-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.highlight {
+  background: linear-gradient(120deg, #ffecd5, #ffddb7);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-weight: 600;
+  color: #e55a1c;
+}
+
+[data-theme="dark"] .highlight {
+  background: linear-gradient(120deg, #4a5568, #2d3748);
+  color: #f6ad55;
+}
+
+/* === FILTER BUTTONS === */
 .filter-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -237,15 +211,13 @@ h2 {
 .filter-btn {
   padding: 0.6rem 1.2rem;
   background: var(--bg-primary);
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: 30px;
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
   color: var(--text-primary);
   cursor: pointer;
-  transition: all 0.35s ease;
-  position: relative;
-  transform-origin: center;
+  transition: all 0.3s;
 }
 
 .filter-btn:hover, .filter-btn.active {
@@ -254,10 +226,7 @@ h2 {
   border-color: var(--accent);
 }
 
-/* ==================================== */
-/* 5. ANGGOTA & KEGIATAN GRID (CARD LAYOUT) */
-/* ==================================== */
-
+/* === ANGGOTA & KEGIATAN GRID === */
 .anggota-grid, .kegiatan-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -270,17 +239,13 @@ h2 {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow);
-  transition: transform 0.4s ease, box-shadow 0.4s ease; /* Transisi untuk Hover */
+  transition: all 0.35s ease;
   text-align: center;
   cursor: pointer;
-  position: relative;
-  /* HILANGKAN TRANSFORM STYLE 3D PADA KARTU */
-  /* transform-style: preserve-3d; */ 
 }
 
-/* --- Card Hover Effects --- */
 .anggota-card:hover, .kegiatan-card:hover {
-  transform: translateY(-8px) scale(1.01);
+  transform: translateY(-8px);
   box-shadow: var(--shadow-hover);
 }
 
@@ -290,19 +255,40 @@ h2 {
   background-size: cover;
   background-position: center;
   background-color: #e2e8f0;
-  transition: filter 0.4s ease;
 }
 
-/* Konten Kartu (Tetap Sama) */
-.kegiatan-content { padding: 1.3rem; }
-.anggota-card h3 { font-size: 1.2rem; margin: 1.1rem 0 0.3rem; }
-.anggota-card .role { font-size: 0.92rem; color: var(--accent); }
+.anggota-card h3, .kegiatan-card h3 {
+  font-size: 1.2rem;
+  margin: 1.1rem 0 0.3rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
 
+.anggota-card .role {
+  font-size: 0.92rem;
+  color: var(--accent);
+  font-weight: 600;
+}
 
-/* ==================================== */
-/* 6. FORMULIR KEHADIRAN & TOMBOL */
-/* ==================================== */
+.anggota-card .desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  padding: 0 0.8rem 0.8rem;
+}
 
+.kegiatan-content {
+  padding: 1.3rem;
+}
+
+.kegiatan-content .date {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.8rem;
+}
+
+/* === FORM KEHADIRAN === */
 .form-section {
   background: var(--card-bg);
   border-radius: 16px;
@@ -310,124 +296,225 @@ h2 {
   box-shadow: var(--shadow);
   max-width: 700px;
   width: 100%;
-  margin: 0 auto; /* Tengah */
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Poppins', sans-serif;
 }
 
 input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: var(--accent);
-  /* NEON FOCUS DIPERHALUS */
-  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.2), 0 0 8px rgba(var(--accent-rgb), 0.5); 
+  box-shadow: 0 0 0 3px rgba(30, 86, 160, 0.2);
+}
+
+.btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.9rem 1.8rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Poppins', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .btn:hover {
-  background: var(--accent-light);
-  transform: translateY(-2px) scale(1.01); /* Dibuat lebih sederhana */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3), var(--neon-glow);
+  background: #1a4a8a;
+  transform: translateY(-2px);
 }
 
-
-/* ==================================== */
-/* 7. ROBOTIC THEME ENHANCEMENTS (Cleaned Up) */
-/* ==================================== */
-
-/* 1. EFEK SIRKUIT DI BACKGROUND (Ringan) */
-body {
-    /* Hanya menggunakan background grid halus, tidak menggunakan animasi berat di body */
-    background-image: linear-gradient(0deg, var(--bg-primary) 99%, rgba(var(--accent-rgb), 0.04) 100%),
-                      linear-gradient(90deg, var(--bg-primary) 99%, rgba(var(--accent-rgb), 0.04) 100%);
-    background-size: 25px 25px;
+.btn-export {
+  background: #e53e3e;
 }
 
-/* 2. Navbar LED strip (Stabil) */
-.navbar::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 3px;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      var(--accent),
-      var(--accent) 10px,
-      transparent 10px,
-      transparent 20px
-    );
-  animation: ledPulse 2s infinite alternate;
-  opacity: 0.7;
-  box-shadow: 0 0 5px var(--accent);
+.btn-export:hover {
+  background: #c53030;
 }
 
-@keyframes ledPulse {
-  0% { opacity: 0.5; box-shadow: 0 0 2px var(--accent); }
-  100% { opacity: 1; box-shadow: 0 0 6px var(--accent-light); }
+.btn-success {
+  background: #38a169;
 }
 
-/* 3. Section title underline */
-.section h2 {
-  position: relative;
-  display: inline-block;
+.btn-success:hover {
+  background: #2f855a;
 }
 
-.section h2::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 0;
-  height: 3px;
-  background: var(--highlight);
-  box-shadow: 0 0 6px var(--highlight);
-  transition: width 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+.form-footer {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
 }
 
-/* Gunakan kelas 'fade-in' untuk memicu underline (lebih konsisten) */
-.section h2.fade-in::after {
+#formMessage {
+  margin-top: 1.2rem;
+  display: none;
+}
+
+#formMessage div {
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+/* === KALENDER === */
+.calendar-container {
+  background: var(--card-bg);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  height: 600px;
+}
+
+.calendar-header {
+  padding: 1rem 1.5rem;
+  background: var(--accent);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calendar-content {
+  height: calc(600px - 60px);
+}
+
+.calendar-content iframe {
   width: 100%;
-  box-shadow: 0 0 10px var(--highlight); 
+  height: 100%;
+  border: none;
 }
 
-/* 4. Card circuit glow (lebih stabil) */
-.anggota-card:hover, .kegiatan-card:hover {
-  border: 1px solid rgba(var(--accent-rgb), 0.4);
-  box-shadow: var(--shadow-hover), 0 0 10px rgba(var(--accent-rgb), 0.4);
+/* === LIGHTBOX === */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
 }
 
-/* 5. Prestasi list item (Wiggle) */
-#prestasi ul li {
-  transition: transform 0.4s ease;
-  list-style-type: none; 
-  padding-left: 0.5rem;
-  line-height: 2.2; /* Menambah ruang antar item */
-}
-#prestasi ul li::before {
-  content: '⚡';
-  color: var(--highlight);
-  margin-right: 0.5rem;
-  font-size: 0.8em;
-  display: inline-block;
-  transition: transform 0.4s ease;
-}
-#prestasi ul li:hover {
-  transform: translateX(5px);
-}
-#prestasi ul li:hover::before {
-  transform: scale(1.3) rotate(-10deg);
-  text-shadow: 0 0 5px var(--highlight);
+.lightbox.active {
+  opacity: 1;
+  visibility: visible;
 }
 
+.lightbox-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 85vh;
+  text-align: center;
+}
 
-/* ==================================== */
-/* 8. RESPONSIVE MEDIA QUERIES */
-/* ==================================== */
+.lightbox-img {
+  max-width: 100%;
+  max-height: 70vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
 
+.lightbox-info {
+  color: white;
+  margin-top: 1.2rem;
+}
+
+.lightbox-info h3 {
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.lightbox-info p {
+  font-size: 1.1rem;
+  margin: 0.3rem 0;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  color: white;
+  font-size: 2.5rem;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* === RESPONSIVE === */
 @media (max-width: 900px) {
-    .section {
-        padding: 5rem 0 6rem;
-    }
+  .section {
+    padding: 5rem 0 6rem;
+  }
+  h2 {
+    font-size: 2rem;
+  }
 }
 
 @media (max-width: 768px) {
+  .nav-menu {
+    position: fixed;
+    top: 70px;
+    left: -100%;
+    flex-direction: column;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    width: 100%;
+    text-align: center;
+    padding: 2rem 0;
+    transition: 0.4s ease;
+    box-shadow: 0 8px 16px rgba(30, 86, 160, 0.25);
+  }
+  .nav-menu.active {
+    left: 0;
+  }
+  .hamburger {
+    display: flex;
+  }
   .section {
     padding: 3.5rem 0 4.5rem;
   }
@@ -437,21 +524,23 @@ body {
   .form-section {
     padding: 1.8rem;
   }
-  /* Menonaktifkan 3D dan gerakan kompleks untuk mobile */
-  .anggota-card:hover, .kegiatan-card:hover {
-    transform: translateY(-4px);
-  }
 }
 
 @media (max-width: 480px) {
   .anggota-grid, .kegiatan-list {
     grid-template-columns: 1fr;
   }
-  .btn {
-    width: 100%;
+  .filter-buttons {
     justify-content: center;
   }
-  .form-footer {
-    flex-direction: column;
+  .logo-text {
+    font-size: 1.3rem;
   }
-}
+  .calendar-container {
+    height: 500px;
+  }
+  .calendar-header {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  }
