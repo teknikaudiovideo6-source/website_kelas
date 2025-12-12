@@ -32,15 +32,8 @@ const kegiatanData = [
   { judul: "Workshop", tanggal: "17 sep 2025", img: "img/workshop2.jpg" },
   { judul: "MakanBersama", tanggal: "6 nov 2024", img: "img/makan_bersama.jpg" },
   { judul: "Projek Penguatan Profil Pelajar Pancasila", tanggal: "18 okt 2024", img: "img/p5.jpg" },
-  { judul: "Latihan MC & Public Speaking", tanggal: "8 Apr 2025", img: "https://via.placeholder.com/320x180/ff6b35/ffffff?text=Public+Speaking" },
-  { judul: "Pelatihan Desain Grafis", tanggal: "17 Apr 2025", img: "https://via.placeholder.com/320x180/9013fe/ffffff?text=Desain+Grafis" },
-  { judul: "Simulasi UNBK", tanggal: "30 Apr 2025", img: "https://via.placeholder.com/320x180/26735f/ffffff?text=UNBK" },
-  { judul: "Outing Class ke Museum", tanggal: "14 Mei 2025", img: "https://via.placeholder.com/320x180/ab47bc/ffffff?text=Outing+Class" },
-  { judul: "Buka Puasa Bersama", tanggal: "20 Mar 2025", img: "https://via.placeholder.com/320x180/e779a0/ffffff?text=Buka+Bersama" },
-  { judul: "Pelatihan P3K Dasar", tanggal: "6 Mei 2025", img: "https://via.placeholder.com/320x180/40c9ff/ffffff?text=P3K" },
-  { judul: "Pembuatan Poster Edukasi", tanggal: "11 Mei 2025", img: "https://via.placeholder.com/320x180/5c6bc0/ffffff?text=Poster" },
-  { judul: "Pentas Seni Akhir Semester", tanggal: "28 Mei 2025", img: "https://via.placeholder.com/320x180/6dd5ed/ffffff?text=Pentas+Seni" }
 ];
+
 
 
 
