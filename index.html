@@ -29,8 +29,9 @@
           <a href="#prestasi" class="nav-link">Prestasi</a>
           <a href="#kegiatan" class="nav-link">Kegiatan</a>
           <a href="#anggota" class="nav-link">Anggota</a>
+          <a href="#jadwal" class="nav-link">Jadwal</a>
           <a href="#kehadiran" class="nav-link">Kehadiran</a>
-          <a href="#kalender" class="nav-link">Kalender</a>
+          
         </nav>
         <div class="hamburger" id="hamburger">
           <span></span>
@@ -77,11 +78,8 @@
         <h2>Prestasi Unggulan</h2>
         <p>Dalam kurun waktu satu semester, kami telah meraih sejumlah pencapaian membanggakan:</p>
         <ul>
-          <li>🏆 <strong>Juara </strong> — Kompetisi Robotik Edukasi (KREASI)</li>
-          <li>🥈 <strong>Juara </strong> — Festival Seni & Budaya Pelajar Daerah</li>
-          <li>🥉 <strong>Juara </strong> — Lomba Cerdas Cermat Tingkat Sekolah (2025)</li>
-          <li>🎖️ <strong>Penghargaan Kreativitas</strong> — Desain Poster Hari Pendidikan Nasional</li>
-          <li>🌱 <strong>Program Unggulan Sekolah</strong> — "Kelas Hijau" (Pengelolaan Sampah & Tanaman Obat)</li>
+          <li>🏆 <strong>Juara 2</strong> — Kompetisi Robotik Edukasi (KREASI)</li>
+          <li>🥈 <strong>Juara 2</strong> — Lomba Poster</li>
         </ul>
       </div>
     </div>
@@ -91,7 +89,7 @@
   <section id="kegiatan" class="section">
     <div class="container">
       <h2>Kegiatan Kelas</h2>
-      <p class="section-subtitle">30+ kegiatan dalam 1 semester — belajar sambil berkontribusi</p>
+      <p class="section-subtitle"> kegiatan dalam 2 tahun — belajar sambil berkontribusi</p>
       <div class="kegiatan-list" id="kegiatanContainer">
         <!-- Diisi via JS -->
       </div>
@@ -102,7 +100,7 @@
   <section id="anggota" class="section">
     <div class="container">
       <h2>Daftar Anggota</h2>
-      <p class="section-subtitle">15 Siswa & 3 Guru Pendamping — Bersama, Kami Tumbuh</p>
+      <p class="section-subtitle">15 Siswa & 3 Guru Pendamping — Bersama, Kita Bisa</p>
 
       <div class="filter-buttons">
         <button class="filter-btn active" data-filter="all">Semua</button>
@@ -120,6 +118,19 @@
     </div>
   </section>
 
+  <!-- Section JADWAL -->
+<section id="jadwal" class="section">
+  <div class="container">
+    <h2>Jadwal Pelajaran</h2>
+    <p class="section-subtitle">
+      Jadwal kelas <span class="highlight">XI TAV</span>
+    </p>
+
+    <div class="jadwal-grid" id="jadwalGrid">
+      <!-- diisi dari data.js -->
+    </div>
+  </div>
+</section>
   <!-- Section Kehadiran -->
   <section id="kehadiran" class="section">
     <div class="container">
@@ -169,27 +180,7 @@
     </div>
   </section>
 
-  <!-- Section Kalender -->
-  <section id="kalender" class="section">
-    <div class="container">
-      <h2>Kalender Kegiatan</h2>
-      <p class="section-subtitle">Jadwal resmi kelas & sekolah</p>
-      <div class="calendar-container">
-        <div class="calendar-header">
-          <h3>Kalender Kelas XI-TAV</h3>
-          <a href="https://calendar.google.com/calendar/u/0?cid=..." 
-             target="_blank" 
-             class="btn" 
-             id="calendarLink">
-            Buka di Google Calendar
-          </a>
-        </div>
-        <div class="calendar-content">
-          <iframe id="calendarIframe" frameborder="0" scrolling="no"></iframe>
-        </div>
-      </div>
-    </div>
-  </section>
+
 
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox">
