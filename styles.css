@@ -392,32 +392,33 @@ input:focus, select:focus, textarea:focus {
   border-radius: 8px;
 }
 
-/* === KALENDER === */
-.calendar-container {
+/* === JADWAL === */
+.jadwal-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-top: 20px;
+}
+
+.jadwal-card {
   background: var(--card-bg);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  height: 600px;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  transition: 0.3s;
 }
 
-.calendar-header {
-  padding: 1rem 1.5rem;
-  background: var(--accent);
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.jadwal-card h3 {
+  margin-bottom: 10px;
+  color: var(--accent);
 }
 
-.calendar-content {
-  height: calc(600px - 60px);
+.jadwal-card ul {
+  padding-left: 20px;
 }
 
-.calendar-content iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
+.jadwal-card li {
+  margin: 4px 0;
 }
 
 /* === LIGHTBOX === */
