@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     themeToggle.innerHTML = currentTheme === 'dark' ? '☀️' : '🌙';
   });
 
+  
   // ===== RENDER DATA =====
   const kegiatanContainer = document.getElementById('kegiatanContainer');
   kegiatanData.forEach(keg => {
@@ -105,9 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ===== KALENDER =====
   // Ganti dengan URL kalender publik Anda
-  const CALENDAR_URL = 'https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FJakarta&bgcolor=%23ffffff&src=c21hbmVnZXJpMW1hamJlcnNhLmdvdi5pZV85MnNzMWt0cW45YzFvZjJzcTJwMWZ0aWVuc0Bncm91cC5hbGVuZGFyLmdvb2dsZS5jb20&color=%23039BE5';
-  document.getElementById('calendarIframe').src = CALENDAR_URL;
-  document.getElementById('calendarLink').href = CALENDAR_URL.replace('embed?', 'u/0?cid=');
+
 
   // ===== FORM KEHADIRAN =====
 // ===== FORM KEHADIRAN: SIMPAN LANGSUNG KE EXCEL =====
@@ -272,4 +271,19 @@ document.getElementById('saveToExcelBtn')?.addEventListener('click', () => {
       hamburger.classList.remove('active');
     }
   });
+});
+const jadwalGrid = document.getElementById("jadwalGrid");
+
+jadwalKelas.forEach(hari => {
+  const card = document.createElement("div");
+  card.className = "jadwal-card";
+
+  card.innerHTML = `
+    <h3>${hari.hari}</h3>
+    <ul>
+      ${hari.mapel.map(m => `<li>${m}</li>`).join("")}
+    </ul>
+  `;
+
+  jadwalGrid.appendChild(card);
 });
